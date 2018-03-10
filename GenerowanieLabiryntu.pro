@@ -6,11 +6,9 @@ CONFIG -= qt
 SOURCES += main.cpp \
     mazeclass.cpp \
     mazegen.cpp \
-    mazeprint.cpp \
-    launchgame.cpp
+    tempprint.cpp
 
 HEADERS += \
     mazeclass.h \
     mazegen.h \
-    mazeprint.h \
-    launchgame.h
+    tempprint.h

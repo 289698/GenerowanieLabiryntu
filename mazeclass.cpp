@@ -2,38 +2,54 @@
 
 MazeClass::MazeClass()
 {
-    // deklaracja planszy
-    mainMazeTab = new MazeStruct *[w];
-    for (int i=0; i<w; i++)
-        mainMazeTab[i] = new MazeStruct [k];
+    mazeHeight = getIntValue();
+    mazeWidth = getIntValue();
+    reserveIntMemory(mazeTab, mazeHeight, mazeWidth);
 
-    // granice labiryntu
-    for (int i=0; i<w; i++)
-    {
-        *mainMazeTab[i][0].left_ = 1;
-        mainMazeTab[i][k-1].right_ = 1;
-    }
-    for (int j=0; j<k; j++)
-    {
-        mainMazeTab[0][j].up_ = 1;
-        mainMazeTab[w-1][j].down_ = 1;
-    }
-
-    // łączenie ścian
-    for (int i=0; i<w-1; i++)
-        for (int j=0; j<k-1; j++)
-        {
-            //mainMazeTab[i][j].down_
-        }
+    cout << "MazeClass Object created!\n";
 }
 
 MazeClass::~MazeClass()
 {
-    for (int i=0; i<w; i++)
-        delete[] mainMazeTab[i];
-    delete[] mainMazeTab;
+
+    clearIntMemory(mazeTab, mazeHeight);
+    cout << "MazeClass Object destroyed!\n";
 }
 
+int MazeClass::getIntValue()
+{
+    int a;
+    cin >> a;
+    return a;
+}
+
+void MazeClass::reserveBoolMemory (bool **&adress, int w, int k)
+{
+    adress = new bool *[w];
+    for (int i=0; i<w; i++)
+        adress[i] = new bool [k];
+}
+
+void MazeClass::clearBoolMemory (bool **&adress, int w)
+{
+    for (int i=0; i<w; i++)
+        delete[] adress[i];
+    delete adress;
+}
+
+void MazeClass::reserveIntMemory (int **&adress, int w, int k)
+{
+    adress = new int *[w];
+    for (int i=0; i<w; i++)
+        adress[i] = new int [k];
+}
+
+void MazeClass::clearIntMemory (int **&adress, int w)
+{
+    for (int i=0; i<w; i++)
+        delete[] adress[i];
+    delete adress;
+}
 
 //int MazeClass::druk(int *&Habadaba)
 

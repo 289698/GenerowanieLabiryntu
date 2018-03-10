@@ -2,6 +2,7 @@
 #define MAZECLASS_H
 
 #include <iostream>
+#include <windows.h>
 
 using namespace std;
 
@@ -9,22 +10,22 @@ class MazeClass
 {
 public:
 
-    struct MazeStruct
-    {
-        bool *up_;
-        bool *down_;
-        bool *right_;
-        bool *left_;
-    };
-
     MazeClass();
     ~MazeClass();
 
+protected:
+
+    int mazeHeight;
+    int mazeWidth;
+    int **mazeTab;
+    void reserveBoolMemory (bool **&adress, int w, int k);
+    void clearBoolMemory (bool **&adress, int w);
+    void reserveIntMemory (int **&adress, int w, int k);
+    void clearIntMemory (int **&adress, int w);
+
 private:
 
-    MazeStruct **mainMazeTab;
-    int w;
-    int k;
+    int getIntValue();
 
 };
 
