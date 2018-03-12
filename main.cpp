@@ -12,17 +12,11 @@ using namespace std;
 
 // 186 ║ 030 _ 205 ═ //
 
-int main(int argc, char *argv[])
+int  main(int argc, char *argv[])
 {
     MazeGen *O1;
     O1 = new MazeGen;
-    cout << "test\n";
-    Sleep(800);
-    O1->temp69();
-    Sleep(800);
-    cout << "test\n";
+    Sleep(1200);
     delete O1;
-    cout << "test\n";
-    Sleep(800);
     return 0;
 }

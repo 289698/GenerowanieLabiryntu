@@ -18,10 +18,11 @@ protected:
     int mazeHeight;
     int mazeWidth;
     int **mazeTab;
-    void reserveBoolMemory (bool **&adress, int w, int k);
-    void clearBoolMemory (bool **&adress, int w);
+
     void reserveIntMemory (int **&adress, int w, int k);
     void clearIntMemory (int **&adress, int w);
+    void reserveBoolMemory (bool **&adress, int w, int k);
+    void clearBoolMemory (bool **&adress, int w);
 
 private:
 
