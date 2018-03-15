@@ -2,7 +2,7 @@
 #define MAZECLASS_H
 
 #include <iostream>
-#include <windows.h>
+//#include <windows.h>
 
 using namespace std;
 

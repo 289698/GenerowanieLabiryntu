@@ -14,9 +14,10 @@ using namespace std;
 
 int  main(int argc, char *argv[])
 {
+    srand(time(0));
     MazeGen *O1;
     O1 = new MazeGen;
-    Sleep(1200);
+    //Sleep(1200);
     delete O1;
     return 0;
 }

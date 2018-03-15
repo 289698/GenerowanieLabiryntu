@@ -18,8 +18,8 @@ struct Borders
 
 struct PointXY
 {
-    int x;
-    int y;
+    int w;
+    int k;
 };
 
 class MazeGen: public MazeClass
@@ -28,16 +28,23 @@ public:
 
     MazeGen();
     ~MazeGen();
-    void temp(int a); //     UWAGA !!!
+    void temp(bool a); //     UWAGA !!!
     void temp2();
+    void temp3();
 
 private:
 
     Borders **bordersTab;
     bool **visitedTab;
+    PointXY startingPoint;
 
-    PointXY makeRandomPath(PointXY current);
-    PointXY findNextPoint(PointXY current);
+    LARGE_INTEGER uTicks;
+    LARGE_INTEGER uFreq;
+    double ticks, freq;
+
+    void makeRandomPath(PointXY currentPos);
+    bool findNextDir(PointXY current, char &dir, int &a);
+    bool findNextPoint();
 
     bool randomBool();
     void rewriteTab();

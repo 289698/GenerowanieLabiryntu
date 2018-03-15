@@ -2,8 +2,8 @@
 
 MazeClass::MazeClass()
 {
-    mazeHeight = getIntValue();
-    mazeWidth = getIntValue();
+    mazeHeight = 30; //getIntValue();
+    mazeWidth = 50; //getIntValue();
     reserveIntMemory(mazeTab, mazeHeight, mazeWidth);
 
     cout << "\nMazeClass Object created!\n";
