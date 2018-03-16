@@ -2,7 +2,6 @@
 
 MazeGen::MazeGen()
 {
-
     QueryPerformanceCounter (&uTicks);
     QueryPerformanceFrequency (&uFreq);
 
@@ -10,173 +9,164 @@ MazeGen::MazeGen()
     freq = uFreq.QuadPart;
     cout << fixed;
 
-    reserveBordersMemory(bordersTab, mazeHeight, mazeWidth);
+    reserveBordersMemory();
     reserveBoolMemory(visitedTab, mazeHeight, mazeWidth);
 
     temp(1); // jedynkuje krawedzie
     temp3(); // zeruje visitedTab
-    startingPoint.w = 14; startingPoint.k = 4;
 
     QueryPerformanceCounter (&uTicks);
     ticks = uTicks.QuadPart - ticks;
     cout << "\nCzas przygotowania obiektu: " << ticks / freq << endl;
 
-    makeRandomPath(startingPoint);
-    while(findNextPoint());
-    //cin.ignore();
+    generateMaze();
 
-    temp2(); // drukuje tablice
+    temp2(1, 2000); // drukuje tablice
 
     cout << "\nMazeGen Object created!\n";
 }
 MazeGen::~MazeGen()
 {
-    clearBordersMemory(bordersTab, mazeHeight, mazeWidth);
+    clearBordersMemory();
     clearBoolMemory(visitedTab, mazeHeight);
 
     cout << "\nMazeGen Object destroyed!\n";
 }
 
+void MazeGen::generateMaze()
+{
+    PointXY currentPos;
+    currentPos.row = getIntValue();
+    currentPos.col = getIntValue();
+    makeRandomPath(currentPos);
+    while (findNextPoint(currentPos))
+        makeRandomPath(currentPos);
+}
+
 void MazeGen::makeRandomPath(PointXY currentPos)
 {
-    //cout << "\nmakeRandomPath\n";
-    //cout << "\nIDE\n";
-    char dir;
-    int a;
-    visitedTab[currentPos.w][currentPos.k] = 1;
-    if(findNextDir(currentPos, dir, a))
+    visitedTab[currentPos.row][currentPos.col] = 1;
+    char direction;
+    direction = randomDirection(currentPos);
+
+    if (direction == 'X')
+        return;
+    if (direction == 'N')
     {
-        //cout << "\nNISZCZE SCIANE\n";
-        if (dir == 'N')
-        {
-            *(bordersTab[currentPos.w][currentPos.k].N) = 0;
-            currentPos.w--;
-        }
-        if (dir == 'E')
-        {
-            *(bordersTab[currentPos.w][currentPos.k].E) = 0;
-            currentPos.k++;
-        }
-        if (dir == 'S')
-        {
-            *(bordersTab[currentPos.w][currentPos.k].S) = 0;
-            currentPos.w++;
-        }
-        if (dir == 'W')
-        {
-            *(bordersTab[currentPos.w][currentPos.k].W) = 0;
-            currentPos.k--;
-        }
-        //temp2();
-        makeRandomPath(currentPos);
-        //cout << a << " "; // usunac wypis a
+        *(bordersTab[currentPos.row][currentPos.col].N) = 0;
+        currentPos.row--;
     }
+    if (direction == 'E')
+    {
+        *(bordersTab[currentPos.row][currentPos.col].E) = 0;
+        currentPos.col++;
+    }
+    if (direction == 'S')
+    {
+        *(bordersTab[currentPos.row][currentPos.col].S) = 0;
+        currentPos.row++;
+    }
+    if (direction == 'W')
+    {
+        *(bordersTab[currentPos.row][currentPos.col].W) = 0;
+        currentPos.col--;
+    }
+
+    makeRandomPath(currentPos);
+
     return;
 }
 
-bool MazeGen::findNextDir(PointXY currentPos, char &dir, int &a)
+char MazeGen::randomDirection(PointXY currentPos)
 {
-    //cout << "\nfindNextDir\n";
-    //cout << "\nSZUKAM\n";
     bool dirN = 0,
          dirE = 0,
          dirS = 0,
          dirW = 0;
-    int dirNumber = 0;
-    // czy można to uprościć ???
-    // sprawdzam dostepne kierunki
-    if (currentPos.w-1 >= 0)
-        if (!(visitedTab[currentPos.w-1][currentPos.k]))
-        {
-            dirN = 1;
-            dirNumber++;
-        }
-    if (currentPos.k+1 <= mazeWidth-1)
-        if (!(visitedTab[currentPos.w][currentPos.k+1]))
-        {
-            dirE = 1;
-            dirNumber++;
-        }
-    if (currentPos.w+1 <= mazeHeight-1)
-        if (!(visitedTab[currentPos.w+1][currentPos.k]))
-        {
-            dirS = 1;
-            dirNumber++;
-        }
-    if (currentPos.k-1 >= 0)
-        if (!(visitedTab[currentPos.w][currentPos.k-1]))
-        {
-            dirW = 1;
-            dirNumber++;
-        }
+    int numberOfDirections = 0,
+        i = 0;
+    char *tab,
+         direction;
 
-    if (!dirNumber) // jesli nie mozna sie ruszyc
-    {
-        //cout << "\nJestes bananem\n";
-        return 0;
+    if (currentPos.row-1 >= 0            && !(visitedTab[currentPos.row-1][currentPos.col])) {
+        dirN = 1; numberOfDirections++;
+    }
+    if (currentPos.col+1 <= mazeWidth-1  && !(visitedTab[currentPos.row][currentPos.col+1])) {
+        dirE = 1; numberOfDirections++;
+    }
+    if (currentPos.row+1 <= mazeHeight-1 && !(visitedTab[currentPos.row+1][currentPos.col])) {
+        dirS = 1; numberOfDirections++;
+    }
+    if (currentPos.col-1 >= 0            && !(visitedTab[currentPos.row][currentPos.col-1])) {
+        dirW = 1; numberOfDirections++;
     }
 
-    char *tab; // tworze tablice z ktorej bede losowac kierunek
-    tab = new char[dirNumber];
-    int i = 0;
+    tab = new char[numberOfDirections];
 
-    if (dirN) { tab[i] = 'N'; i++; }
-    if (dirE) { tab[i] = 'E'; i++; }
-    if (dirS) { tab[i] = 'S'; i++; }
-    if (dirW) { tab[i] = 'W'; i++; }
-// losuje kierunek
-    a = rand();
-    i = a % dirNumber;
+    if (dirN) {
+        tab[i] = 'N'; i++;
+    }
+    if (dirE) {
+        tab[i] = 'E'; i++;
+    }
+    if (dirS) {
+        tab[i] = 'S'; i++;
+    }
+    if (dirW) {
+        tab[i] = 'W'; i++;
+    }
 
-    //cout << i << " ";
+    if (numberOfDirections == 0)
+        return 'X';
 
-    dir = tab[i];
+    i = rand() % numberOfDirections;
+
+    direction = tab[i];
 
     delete[] tab;
-    return 1;
+
+    return direction;
 }
 
-bool MazeGen::findNextPoint()
+bool MazeGen::findNextPoint(PointXY &currentPos)
 {
-    //cout << "\nfindNextPoint\n";
-    //temp2();
-    //cin.ignore();
-    for (int i=0; i<mazeHeight-1; i++)
+    for (int i=0; i<mazeHeight; i++)
     {
-        for (int j=0; j<mazeWidth-1; j++)
-            if (!visitedTab[i][j])
+        for (int j=0; j<mazeWidth; j++) if (!visitedTab[i][j])
+        {
+            bool isPointFound = 0;
+
+                 if (j < mazeWidth-1  && visitedTab[i][j+1])
             {
-                //cout << "\n( " << i << " , " << j << " )\n";
-                if(visitedTab[i][j+1])
-                {
-                    *(bordersTab[i][j].E) = 0;
-                    PointXY start;
-                    start.w = i;
-                    start.k = j;
-                    makeRandomPath(start);
-                    return 1;
-                }
-                if(visitedTab[i+1][j])
-                {
-                    *(bordersTab[i][j].S) = 0;
-                    PointXY start;
-                    start.w = i;
-                    start.k = j;
-                    makeRandomPath(start);
-                    return 1;
-                }
+                *(bordersTab[i][j].E) = 0;
+                isPointFound = 1;
             }
+            else if (i < mazeHeight-1 && visitedTab[i+1][j])
+            {
+                *(bordersTab[i][j].S) = 0;
+                isPointFound = 1;
+            }
+            else if (j > 0            && visitedTab[i][j-1])
+            {
+                *(bordersTab[i][j].W) = 0;
+                isPointFound = 1;
+            }
+            else if (i > 0            && visitedTab[i-1][j])
+            {
+                *(bordersTab[i][j].N) = 0;
+                isPointFound = 1;
+            }
+
+            if (isPointFound)
+            {
+                currentPos.row = i;
+                currentPos.col = j;
+                return 1;
+            }
+        }
     }
     return 0;
 }
-
-/*bool MazeGen::randomBool()
-{
-    srand(time(0));
-    //bool a;
-    //a = rand() % 2;
-    return rand() % 2;
-}*/
 
 void MazeGen::temp3()
 {
@@ -185,14 +175,15 @@ void MazeGen::temp3()
             visitedTab[i][j] = 0;
 }
 
-void MazeGen::temp2()
+void MazeGen::temp2(bool clean, int sleepTime)
 {
     //cout << "\nMazeGen Object is being prepared!\n";
     rewriteTab();
     //cout << "\nMazeGen Object is being printed!\n";
-    //system("cls");
+    if (clean)
+        system("cls");
     printIntTab(mazeTab, visitedTab, mazeHeight, mazeWidth);
-    //Sleep(500);
+    Sleep(sleepTime);
 }
 
 void MazeGen::rewriteTab()
@@ -223,66 +214,60 @@ void MazeGen::temp(bool a)
             *(bordersTab[i][j].S) = a;
             *(bordersTab[i][j].W) = a;
         }
-    /*
-    for (int i=0; i<mazeHeight; i++)
-    {
-        *(bordersTab[i][0].W) = 1;
-        *(bordersTab[i][mazeWidth-1].E) = 1;
-    }
-    for (int j=0; j<mazeWidth; j++)
-    {
-        *(bordersTab[0][j].N) = 1;
-        *(bordersTab[mazeHeight-1][j].S) = 1;
-    }
-*/
 
     cout << "\nTablica wy-" << a << "-wana\n";
 }
 
-void MazeGen::reserveBordersMemory (Borders **&adress, int w, int k)
+void MazeGen::reserveBordersMemory ()
 {
-    adress = new Borders *[w];
-    for (int i=0; i<w; i++)
-        adress[i] = new Borders [k];
-    for (int i=0; i<w; i++)
-        for (int j=0; j<k; j++)
+    bordersTab = new Borders *[mazeHeight];
+
+    for (int i=0; i<mazeHeight; i++)
+        bordersTab[i] = new Borders [mazeWidth];
+
+    for (int i=0; i<mazeHeight; i++)
+        for (int j=0; j<mazeWidth; j++)
         {
-            adress[i][j].N = new bool;
-            adress[i][j].E = new bool;
-            adress[i][j].S = new bool;
-            adress[i][j].W = new bool;
+            bordersTab[i][j].N = new bool;
+            bordersTab[i][j].E = new bool;
+            bordersTab[i][j].S = new bool;
+            bordersTab[i][j].W = new bool;
         }
 
-    for (int i=1; i<w; i++)
-        for(int j=1; j<k; j++)
+    for (int i=1; i<mazeHeight; i++)
+        for(int j=1; j<mazeWidth; j++)
         {
             bordersTab[i][j].N = bordersTab[i-1][j].S;
             bordersTab[i][j].W = bordersTab[i][j-1].E;
         }
-    for (int i=1; i<w; i++)
+
+    for (int i=1; i<mazeHeight; i++)
         bordersTab[i][0].N = bordersTab[i-1][0].S;
-    for (int j=1; j<k; j++)
+
+    for (int j=1; j<mazeWidth; j++)
         bordersTab[0][j].W = bordersTab[0][j-1].E;
 
     cout << "\nZadeklarowano pamiec na tablice typu Borders\n";
 }
 
-void MazeGen::clearBordersMemory (Borders **&adress, int w, int k)
+void MazeGen::clearBordersMemory ()
 {
-    for (int i=0; i<w; i++)
-        for (int j=0; j<k; j++)
+    for (int i=0; i<mazeHeight; i++)
+        for (int j=0; j<mazeWidth; j++)
         {
-            delete adress[i][j].E;
-            delete adress[i][j].S;
+            delete bordersTab[i][j].E;
+            delete bordersTab[i][j].S;
         }
-    for (int i=0; i<w; i++)
-        delete adress[i][0].W;
-    for (int j=0; j<k; j++)
-        delete adress[0][j].N;
 
-    for (int i=0; i<w; i++)
-        delete[] adress[i];
-    delete[] adress;
+    for (int i=0; i<mazeHeight; i++)
+        delete bordersTab[i][0].W;
+
+    for (int j=0; j<mazeWidth; j++)
+        delete bordersTab[0][j].N;
+
+    for (int i=0; i<mazeHeight; i++)
+        delete[] bordersTab[i];
+    delete[] bordersTab;
 
     cout << "\nUsunieto pamiec na tablice typu Borders\n";
 }

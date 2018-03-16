@@ -2,8 +2,10 @@
 
 MazeClass::MazeClass()
 {
-    mazeHeight = 30; //getIntValue();
-    mazeWidth = 50; //getIntValue();
+    cout << "\nWpisz pocz dane\n";
+
+    mazeHeight = getIntValue();
+    mazeWidth = getIntValue();
     reserveIntMemory(mazeTab, mazeHeight, mazeWidth);
 
     cout << "\nMazeClass Object created!\n";

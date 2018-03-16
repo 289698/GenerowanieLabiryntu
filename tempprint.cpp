@@ -7,10 +7,13 @@ void printIntTab(int **adress, bool **adress2, int w, int k)
         for (int j=0; j<k; j++)
         {
             if (adress2[i][j])
-                SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 11);
+                SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 12);
 
             switch (adress[i][j])
             {
+            case 0:
+                cout << char(206);
+                break;
             case 1:
                 cout << char(203);
                 break;
@@ -54,9 +57,10 @@ void printIntTab(int **adress, bool **adress2, int w, int k)
                 cout << char(254);
                 break;
             case 15:
-                cout << char(177);
+                cout << char(35);
                 break;
             default:
+                SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 15);
                 cout << adress[i][j];
             }
             //cout << " ";

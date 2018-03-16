@@ -23,10 +23,10 @@ protected:
     void clearIntMemory (int **&adress, int w);
     void reserveBoolMemory (bool **&adress, int w, int k);
     void clearBoolMemory (bool **&adress, int w);
+    int getIntValue();
 
 private:
 
-    int getIntValue();
 
 };
 

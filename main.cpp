@@ -15,9 +15,14 @@ using namespace std;
 int  main(int argc, char *argv[])
 {
     srand(time(0));
-    MazeGen *O1;
-    O1 = new MazeGen;
-    //Sleep(1200);
-    delete O1;
+    bool a;
+    do
+    {
+        MazeGen *O1;
+        O1 = new MazeGen;
+        delete O1;
+        cin >> a;
+    }
+    while (a);
     return 0;
 }
