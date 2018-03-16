@@ -15,13 +15,13 @@ using namespace std;
 int  main(int argc, char *argv[])
 {
     srand(time(0));
-    bool a;
+    bool a = 1;
     do
     {
         MazeGen *O1;
         O1 = new MazeGen;
         delete O1;
-        cin >> a;
+        //cin >> a;
     }
     while (a);
     return 0;

@@ -43,6 +43,7 @@ private:
 
     void generateMaze();
     bool findNextPoint(PointXY &currentPos);
+    void makeStartingPath(PointXY currentPos, int &counter, bool &a);
     void makeRandomPath(PointXY currentPos);
     char randomDirection(PointXY currentPos);
 

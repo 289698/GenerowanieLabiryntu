@@ -7,15 +7,11 @@ MazeClass::MazeClass()
     mazeHeight = getIntValue();
     mazeWidth = getIntValue();
     reserveIntMemory(mazeTab, mazeHeight, mazeWidth);
-
-    cout << "\nMazeClass Object created!\n";
 }
 
 MazeClass::~MazeClass()
 {
     clearIntMemory(mazeTab, mazeHeight);
-
-    cout << "\nMazeClass Object destroyed!\n";
 }
 
 int MazeClass::getIntValue()
