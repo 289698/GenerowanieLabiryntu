@@ -37,7 +37,7 @@ int MazeGen::generateMaze(int startingRow)
         makeStartingPath(currentPos, counter, a);
     }
 
-    cout << endl << counter << endl;
+    //cout << endl <<  counter << endl;
 
     while (findNextPoint(currentPos))
         makeRandomPath(currentPos);

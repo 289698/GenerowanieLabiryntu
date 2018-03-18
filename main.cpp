@@ -18,9 +18,11 @@ int  main(int argc, char *argv[])
     bool a = 1;
     do
     {
+        system("cls");
         MazeClass *O1;
         O1 = new MazeClass;
         delete O1;
+        cout << "\nGramy od nowa? (1/0 - tak/nie)\n";
         cin >> a;
     }
     while (a);

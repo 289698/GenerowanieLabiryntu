@@ -11,6 +11,9 @@ TempWalking::TempWalking(int **mazeTab, int mazeHeight, int mazeWidth, int start
     posRow = startingRow;
     posCol = 0;
 
+    system("cls");
+    printIntTab(mazeTab, startingRow, 0, mazeHeight, mazeWidth);
+
     while (1)
     {
         char znak;
@@ -40,7 +43,7 @@ TempWalking::TempWalking(int **mazeTab, int mazeHeight, int mazeWidth, int start
             system("cls");
             printIntTab(mazeTab, posRow, posCol, mazeHeight, mazeWidth);
         }
-        if(znak == 'P')
+        if(znak == 'P' || znak == 'p')
             break;
 
         if (posRow == endingRow && posCol == mazeWidth-1)
