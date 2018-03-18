@@ -14,32 +14,43 @@ TempWalking::TempWalking(int **mazeTab, int mazeHeight, int mazeWidth, int start
     while (1)
     {
         char znak;
+        znak = getch();
 
-        if(kbhit())
+        if((znak == 'w' || znak == 'W') && posRow > 0 && !((mazeTab[posRow][posCol] & 1) == 1))
         {
-            znak = getch();
-            cin.clear();
-            cin.sync();
-        }
-        else
-            znak = 'X';
-
-             if((znak == 'w' || znak == 'W') && posRow > 0 && !((mazeTab[posRow][posCol] & 1) == 1))
             posRow--;
+            system("cls");
+            printIntTab(mazeTab, posRow, posCol, mazeHeight, mazeWidth);
+        }
         else if((znak == 'd' || znak == 'D') && posCol < mazeWidth-1 && !((mazeTab[posRow][posCol] & 2) == 2))
+        {
             posCol++;
+            system("cls");
+            printIntTab(mazeTab, posRow, posCol, mazeHeight, mazeWidth);
+        }
         else if((znak == 's' || znak == 'S') && posRow < mazeHeight-1 && !((mazeTab[posRow][posCol] & 4) == 4))
+        {
             posRow++;
+            system("cls");
+            printIntTab(mazeTab, posRow, posCol, mazeHeight, mazeWidth);
+        }
         else if((znak == 'a' || znak == 'A') && posCol > 0 && !((mazeTab[posRow][posCol] & 8) == 8))
+        {
             posCol--;
-             if(znak == 'P')
-                 break;
+            system("cls");
+            printIntTab(mazeTab, posRow, posCol, mazeHeight, mazeWidth);
+        }
+        if(znak == 'P')
+            break;
 
         if (posRow == endingRow && posCol == mazeWidth-1)
             break;
 
-        system("cls");
-        printIntTab(mazeTab, posRow, posCol, mazeHeight, mazeWidth);
+        if(kbhit())
+        {
+            cin.clear();
+            cin.sync();
+        }
     }
 
     QueryPerformanceCounter (&uTicks);

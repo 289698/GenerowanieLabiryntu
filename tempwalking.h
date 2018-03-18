@@ -19,7 +19,6 @@ private:
 
     int posRow, posCol;
     double a, b;
-
 };
 
 #endif // TEMPWALKING_H
