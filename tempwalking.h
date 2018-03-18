@@ -1,3 +1,4 @@
+/*
 #ifndef TEMPWALKING_H
 #define TEMPWALKING_H
 
@@ -22,3 +23,4 @@ private:
 };
 
 #endif // TEMPWALKING_H
+*/

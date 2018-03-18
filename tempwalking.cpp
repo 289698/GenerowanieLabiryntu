@@ -1,3 +1,4 @@
+/*
 #include "tempwalking.h"
 
 TempWalking::TempWalking(int **mazeTab, int mazeHeight, int mazeWidth, int startingRow, int endingRow)
@@ -63,3 +64,4 @@ TempWalking::TempWalking(int **mazeTab, int mazeHeight, int mazeWidth, int start
     printIntTab(mazeTab, posRow, posCol, mazeHeight, mazeWidth);
     cout << "\nWygrana!\nCzas przechodzenia: " << a/b << endl;
 }
+*/

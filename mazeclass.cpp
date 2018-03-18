@@ -2,21 +2,20 @@
 
 MazeClass::MazeClass()
 {
-    cout << "Wpisz poczatkowe dane (wysososc, szerokosc, wiersz poczatkowy)\n\n";
+    cout << "Wpisz poczatkowe dane (wysososc, szerokosc)\n\n";
 
     mazeHeight = getIntValue();
     mazeWidth = getIntValue();
-    startingRow = getIntValue();
 
     reserveIntMemory(mazeTab, mazeHeight, mazeWidth);
 
     generating = new MazeGen(mazeTab, mazeHeight, mazeWidth);
 
-    endingRow = generating->generateMaze(startingRow);
+    generating->generateMaze();
+
+    printIntTab(mazeTab, mazeHeight, mazeWidth);
 
     delete generating;
-
-    walking = new TempWalking(mazeTab, mazeHeight, mazeWidth, startingRow, endingRow);
 }
 
 MazeClass::~MazeClass()

@@ -28,7 +28,7 @@ public:
 
     MazeGen(int **adress, int mazeH, int mazeW);
     ~MazeGen();
-    int generateMaze(int startingRow);
+    void generateMaze();
 
 private:
 
@@ -44,7 +44,7 @@ private:
 
     bool findNextPoint(PointXY &currentPos);
     void makeStartingPath(PointXY currentPos, int &counter, bool &a);
-    void makeRandomPath(PointXY &currentPos);
+    void makeRandomPath(PointXY &currentPos, char direction);
     char randomDirection(PointXY currentPos);
 
     void rewriteTab();
@@ -54,7 +54,7 @@ private:
     void clearBordersMemory ();
     void reserveBoolMemory (bool **&adress, int w, int k);
     void clearBoolMemory (bool **&adress, int w);
-    void temp(); //
+    void resetBordersTab(); //
 };
 
 #endif // MAZEGEN_H
