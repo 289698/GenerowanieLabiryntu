@@ -2,7 +2,7 @@
 
 MazeClass::MazeClass()
 {
-    cout << "Wpisz poczatkowe dane (wysososc, szerokosc, wiersz poczatkowy)\n\n";
+    cout << "\nWpisz pocz dane\n";
 
     mazeHeight = getIntValue();
     mazeWidth = getIntValue();
@@ -14,6 +14,8 @@ MazeClass::MazeClass()
 
     endingRow = generating->generateMaze(startingRow);
 
+    printIntTab(mazeTab, startingRow, 0, mazeHeight, mazeWidth);
+
     delete generating;
 
     walking = new TempWalking(mazeTab, mazeHeight, mazeWidth, startingRow, endingRow);
@@ -21,6 +23,7 @@ MazeClass::MazeClass()
 
 MazeClass::~MazeClass()
 {
+
     clearIntMemory(mazeTab, mazeHeight);
 }
 
