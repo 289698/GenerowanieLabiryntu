@@ -2,7 +2,9 @@
 #define MAZECLASS_H
 
 #include <iostream>
-//#include <windows.h>
+#include "mazegen.h"
+#include "tempprint.h"
+#include "tempwalking.h"
 
 using namespace std;
 
@@ -21,12 +23,15 @@ protected:
 
     void reserveIntMemory (int **&adress, int w, int k);
     void clearIntMemory (int **&adress, int w);
-    void reserveBoolMemory (bool **&adress, int w, int k);
-    void clearBoolMemory (bool **&adress, int w);
     int getIntValue();
 
 private:
 
+    MazeGen *generating;
+    TempWalking *walking;
+
+    int startingRow;
+    int endingRow;
 
 };
 

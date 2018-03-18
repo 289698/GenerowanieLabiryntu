@@ -1,12 +1,12 @@
 #include "tempprint.h"
 
-void printIntTab(int **adress, bool **adress2, int w, int k)
+void printIntTab(int **adress, int row, int col, int w, int k)
 {
     for (int i=0; i<w; i++)
     {
         for (int j=0; j<k; j++)
         {
-            if (adress2[i][j])
+            if (i == row && j == col)
                 SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 12);
 
             switch (adress[i][j])
@@ -70,7 +70,3 @@ void printIntTab(int **adress, bool **adress2, int w, int k)
         cout << endl;
     }
 }
-/*
-
-
-*/

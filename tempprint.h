@@ -7,6 +7,6 @@
 
 using namespace std;
 
-void printIntTab(int **adress, bool **adress2, int w, int k);
+void printIntTab(int **adress, int row, int col, int w, int k);
 
 #endif // TEMPPRINT_H

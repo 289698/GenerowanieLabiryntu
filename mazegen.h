@@ -1,10 +1,10 @@
 #ifndef MAZEGEN_H
 #define MAZEGEN_H
 
+#include <iostream>
+#include <windows.h>
 #include <ctime>
 #include <cstdlib>
-#include "mazeclass.h"
-#include "tempprint.h"
 
 using namespace std;
 
@@ -22,34 +22,39 @@ struct PointXY
     int col;
 };
 
-class MazeGen: public MazeClass
+class MazeGen
 {
 public:
 
-    MazeGen();
+    MazeGen(int **adress, int mazeH, int mazeW);
     ~MazeGen();
-    void temp(bool a); //     UWAGA !!!
-    void temp2(bool clean, int sleepTime);
-    void temp3();
+    int generateMaze(int startingRow);
 
 private:
 
     Borders **bordersTab;
     bool **visitedTab;
+    int **mazeTab;
 
     LARGE_INTEGER uTicks;
     LARGE_INTEGER uFreq;
     double ticks, freq;
 
-    void generateMaze();
+    int mazeHeight, mazeWidth;
+
     bool findNextPoint(PointXY &currentPos);
     void makeStartingPath(PointXY currentPos, int &counter, bool &a);
-    void makeRandomPath(PointXY currentPos);
+    void makeRandomPath(PointXY &currentPos);
     char randomDirection(PointXY currentPos);
 
     void rewriteTab();
+    void createVisitedTab();
+
     void reserveBordersMemory ();
     void clearBordersMemory ();
+    void reserveBoolMemory (bool **&adress, int w, int k);
+    void clearBoolMemory (bool **&adress, int w);
+    void temp(); //
 };
 
 #endif // MAZEGEN_H

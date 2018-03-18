@@ -1,27 +1,16 @@
 #include "mazegen.h"
 
-MazeGen::MazeGen()
+MazeGen::MazeGen(int **adress, int mazeH, int mazeW)
 {
-    QueryPerformanceCounter (&uTicks);
-    QueryPerformanceFrequency (&uFreq);
-
-    ticks = uTicks.QuadPart;
-    freq = uFreq.QuadPart;
-    cout << fixed;
+    mazeTab = adress;
+    mazeHeight = mazeH;
+    mazeWidth = mazeW;
 
     reserveBordersMemory();
     reserveBoolMemory(visitedTab, mazeHeight, mazeWidth);
 
-    temp(1); // jedynkuje krawedzie
-    temp3(); // zeruje visitedTab
+    createVisitedTab();
 
-    generateMaze();
-
-    QueryPerformanceCounter (&uTicks);
-    ticks = uTicks.QuadPart - ticks;
-    cout << "\nCzas przygotowania obiektu: " << ticks / freq << endl;
-
-    //temp2(1, 0); // drukuje tablice
 }
 
 MazeGen::~MazeGen()
@@ -30,11 +19,12 @@ MazeGen::~MazeGen()
     clearBoolMemory(visitedTab, mazeHeight);
 }
 
-void MazeGen::generateMaze()
+int MazeGen::generateMaze(int startingRow)
 {
     PointXY currentPos;
-    currentPos.row = getIntValue();
-    currentPos.col = getIntValue();
+    currentPos.row = startingRow;
+    currentPos.col = 0;
+
     int counter = 0;
 
     bool a = 0;
@@ -42,16 +32,24 @@ void MazeGen::generateMaze()
 
     while (a)
     {
-        temp(1);
-        temp3();
+        temp();
+        createVisitedTab();
         makeStartingPath(currentPos, counter, a);
     }
-    temp2(1, 0);
+
     cout << endl << counter << endl;
-    Sleep (1000);
+
     while (findNextPoint(currentPos))
         makeRandomPath(currentPos);
-    temp2(0, 0);
+
+    *(bordersTab[startingRow][0].W) = 0;
+    *(bordersTab[currentPos.row][mazeWidth-1].E) = 0;
+
+    Sleep(3000);
+
+    rewriteTab();
+
+    return currentPos.row;
 }
 
 void MazeGen::makeStartingPath(PointXY currentPos, int &counter, bool &a)
@@ -98,7 +96,7 @@ void MazeGen::makeStartingPath(PointXY currentPos, int &counter, bool &a)
     return;
 }
 
-void MazeGen::makeRandomPath(PointXY currentPos)
+void MazeGen::makeRandomPath(PointXY &currentPos)
 {
     visitedTab[currentPos.row][currentPos.col] = 1;
     char direction;
@@ -222,22 +220,12 @@ bool MazeGen::findNextPoint(PointXY &currentPos)
     return 0;
 }
 
-void MazeGen::temp3()
+void MazeGen::createVisitedTab()
 {
+    reserveBoolMemory(visitedTab, mazeHeight, mazeWidth);
     for (int i=0; i<mazeHeight; i++)
         for (int j=0; j<mazeWidth; j++)
             visitedTab[i][j] = 0;
-}
-
-void MazeGen::temp2(bool clean, int sleepTime)
-{
-    //cout << "\nMazeGen Object is being prepared!\n";
-    rewriteTab();
-    //cout << "\nMazeGen Object is being printed!\n";
-    if (clean)
-        system("cls");
-    printIntTab(mazeTab, visitedTab, mazeHeight, mazeWidth);
-    Sleep(sleepTime);
 }
 
 void MazeGen::rewriteTab()
@@ -255,19 +243,7 @@ void MazeGen::rewriteTab()
     }
 }
 
-void MazeGen::temp(bool a)
-{
-    for (int i=0; i<mazeHeight; i++)
-        for (int j=0; j<mazeWidth; j++)
-        {
-            *(bordersTab[i][j].N) = a;
-            *(bordersTab[i][j].E) = a;
-            *(bordersTab[i][j].S) = a;
-            *(bordersTab[i][j].W) = a;
-        }
-}
-
-void MazeGen::reserveBordersMemory ()
+void MazeGen::reserveBordersMemory()
 {
     bordersTab = new Borders *[mazeHeight];
 
@@ -295,9 +271,23 @@ void MazeGen::reserveBordersMemory ()
 
     for (int j=1; j<mazeWidth; j++)
         bordersTab[0][j].W = bordersTab[0][j-1].E;
+
+    temp();
 }
 
-void MazeGen::clearBordersMemory ()
+void MazeGen::temp()
+{
+    for (int i=0; i<mazeHeight; i++)
+        for (int j=0; j<mazeWidth; j++)
+        {
+            *(bordersTab[i][j].N) = 1;
+            *(bordersTab[i][j].E) = 1;
+            *(bordersTab[i][j].S) = 1;
+            *(bordersTab[i][j].W) = 1;
+        }
+}
+
+void MazeGen::clearBordersMemory()
 {
     for (int i=0; i<mazeHeight; i++)
         for (int j=0; j<mazeWidth; j++)
@@ -315,4 +305,18 @@ void MazeGen::clearBordersMemory ()
     for (int i=0; i<mazeHeight; i++)
         delete[] bordersTab[i];
     delete[] bordersTab;
+}
+
+void MazeGen::reserveBoolMemory(bool **&adress, int w, int k)
+{
+    adress = new bool *[w];
+    for (int i=0; i<w; i++)
+        adress[i] = new bool [k];
+}
+
+void MazeGen::clearBoolMemory(bool **&adress, int w)
+{
+    for (int i=0; i<w; i++)
+        delete[] adress[i];
+    delete adress;
 }

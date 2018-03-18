@@ -1,6 +1,6 @@
 #include <iostream>
-#include <mazegen.h>
 #include <mazeclass.h>
+#include <ctime>
 
 using namespace std;
 
@@ -18,10 +18,10 @@ int  main(int argc, char *argv[])
     bool a = 1;
     do
     {
-        MazeGen *O1;
-        O1 = new MazeGen;
+        MazeClass *O1;
+        O1 = new MazeClass;
         delete O1;
-        //cin >> a;
+        cin >> a;
     }
     while (a);
     return 0;
