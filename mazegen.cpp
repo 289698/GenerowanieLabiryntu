@@ -9,7 +9,7 @@ MazeGen::MazeGen(int **adress, int mazeH, int mazeW)
     reserveBordersMemory();
     reserveBoolMemory(visitedTab, mazeHeight, mazeWidth);
 
-    createVisitedTab();
+    resetVisitedTab();
 }
 
 MazeGen::~MazeGen()
@@ -18,22 +18,90 @@ MazeGen::~MazeGen()
     clearBoolMemory(visitedTab, mazeHeight);
 }
 
-void MazeGen::generateMaze()
+int MazeGen::generateMaze(int startingRow)
 {
+    int endingRow;
     PointXY currentPos;
-    currentPos.row = rand() % mazeHeight;
-    currentPos.col = rand() % mazeWidth;
+    currentPos.row = startingRow;
+    currentPos.col = 0;
 
-    makeRandomPath(currentPos, randomDirection(currentPos));
+    int counter = 0;
+
+    bool a = 0;
+    makeStartingPath(currentPos, counter, a);
+
+    while (a)
+    {
+        resetBordersTab();
+        resetVisitedTab();
+        makeStartingPath(currentPos, counter, a);
+    }
+
+    endingRow = currentPos.row;
+
+    //cout << endl <<  counter << endl;
+
     while (findNextPoint(currentPos))
-        makeRandomPath(currentPos, randomDirection(currentPos));
+        makeRandomPath(currentPos);
+
+    *(bordersTab[startingRow][0].W) = 0;
+    *(bordersTab[endingRow][mazeWidth-1].E) = 0;
+
+    //Sleep(3000);
 
     rewriteTab();
+
+    return endingRow;
 }
 
-void MazeGen::makeRandomPath(PointXY &currentPos, char direction)
+void MazeGen::makeStartingPath(PointXY currentPos, int &counter, bool &a)
 {
     visitedTab[currentPos.row][currentPos.col] = 1;
+    char direction;
+    direction = randomDirection(currentPos);
+
+    if (direction == 'X')
+    {
+        a = 1;
+        return;
+    }
+
+    if (currentPos.col == mazeWidth-1)
+    {
+        a = 0;
+        return;
+    }
+
+    if (direction == 'N')
+    {
+        *(bordersTab[currentPos.row][currentPos.col].N) = 0;
+        currentPos.row--;
+    }
+    if (direction == 'E')
+    {
+        *(bordersTab[currentPos.row][currentPos.col].E) = 0;
+        currentPos.col++;
+    }
+    if (direction == 'S')
+    {
+        *(bordersTab[currentPos.row][currentPos.col].S) = 0;
+        currentPos.row++;
+    }
+    if (direction == 'W')
+    {
+        *(bordersTab[currentPos.row][currentPos.col].W) = 0;
+        currentPos.col--;
+    }
+    counter++;
+    makeStartingPath(currentPos, counter, a);
+    return;
+}
+
+void MazeGen::makeRandomPath(PointXY &currentPos)
+{
+    visitedTab[currentPos.row][currentPos.col] = 1;
+    char direction;
+    direction = randomDirection(currentPos);
 
     if (direction == 'X')
         return;
@@ -58,7 +126,7 @@ void MazeGen::makeRandomPath(PointXY &currentPos, char direction)
         currentPos.col--;
     }
 
-    makeRandomPath(currentPos, randomDirection(currentPos));
+    makeRandomPath(currentPos);
     return;
 }
 
@@ -153,9 +221,8 @@ bool MazeGen::findNextPoint(PointXY &currentPos)
     return 0;
 }
 
-void MazeGen::createVisitedTab()
+void MazeGen::resetVisitedTab()
 {
-    reserveBoolMemory(visitedTab, mazeHeight, mazeWidth);
     for (int i=0; i<mazeHeight; i++)
         for (int j=0; j<mazeWidth; j++)
             visitedTab[i][j] = 0;
