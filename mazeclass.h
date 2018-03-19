@@ -4,7 +4,6 @@
 #include <iostream>
 #include "mazegen.h"
 #include "tempprint.h"
-#include "tempwalking.h"
 
 using namespace std;
 
@@ -28,10 +27,6 @@ protected:
 private:
 
     MazeGen *generating;
-    TempWalking *walking;
-
-    int startingRow;
-    int endingRow;
 
 };
 

@@ -16,26 +16,16 @@ using namespace std;
 int  main(int argc, char *argv[])
 {
     srand(time(0));
-    bool a;
+    char a = 'Y';
     do
     {
         system("cls");
         MazeClass *O1;
         O1 = new MazeClass;
         delete O1;
-
-        char wybor;
-        cout << "\nGramy od nowa (Y/N)?\n";
-        do
-        {
-            wybor = getch();
-            if (wybor == 'Y' || wybor == 'y')
-                a = 1;
-            else if (wybor == 'N' || wybor == 'n')
-                a = 0;
-        }
-        while(wybor != 'Y' && wybor != 'y' && wybor != 'N' && wybor != 'n');
+        cout << "\nGramy od nowa? (Y/N)\n";
+        a = getch();
     }
-    while (a);
+    while (a == 'y' || a == 'Y');
     return 0;
 }
