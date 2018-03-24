@@ -1,4 +1,3 @@
-/*
 #include "tempwalking.h"
 
 TempWalking::TempWalking(int **mazeTab, int mazeHeight, int mazeWidth, int startingRow, int endingRow)
@@ -12,8 +11,7 @@ TempWalking::TempWalking(int **mazeTab, int mazeHeight, int mazeWidth, int start
     posRow = startingRow;
     posCol = 0;
 
-    system("cls");
-    printIntTab(mazeTab, startingRow, 0, mazeHeight, mazeWidth);
+    printIntTab(mazeTab, startingRow, 0, mazeHeight, mazeWidth, 1);
 
     while (1)
     {
@@ -23,29 +21,30 @@ TempWalking::TempWalking(int **mazeTab, int mazeHeight, int mazeWidth, int start
         if((znak == 'w' || znak == 'W') && posRow > 0 && !((mazeTab[posRow][posCol] & 1) == 1))
         {
             posRow--;
-            system("cls");
-            printIntTab(mazeTab, posRow, posCol, mazeHeight, mazeWidth);
+            printIntTab(mazeTab, posRow, posCol, mazeHeight, mazeWidth, 1);
         }
         else if((znak == 'd' || znak == 'D') && posCol < mazeWidth-1 && !((mazeTab[posRow][posCol] & 2) == 2))
         {
             posCol++;
-            system("cls");
-            printIntTab(mazeTab, posRow, posCol, mazeHeight, mazeWidth);
+            printIntTab(mazeTab, posRow, posCol, mazeHeight, mazeWidth, 1);
         }
         else if((znak == 's' || znak == 'S') && posRow < mazeHeight-1 && !((mazeTab[posRow][posCol] & 4) == 4))
         {
             posRow++;
-            system("cls");
-            printIntTab(mazeTab, posRow, posCol, mazeHeight, mazeWidth);
+            printIntTab(mazeTab, posRow, posCol, mazeHeight, mazeWidth, 1);
         }
         else if((znak == 'a' || znak == 'A') && posCol > 0 && !((mazeTab[posRow][posCol] & 8) == 8))
         {
             posCol--;
-            system("cls");
-            printIntTab(mazeTab, posRow, posCol, mazeHeight, mazeWidth);
+            printIntTab(mazeTab, posRow, posCol, mazeHeight, mazeWidth, 1);
         }
+
         if(znak == 'P' || znak == 'p')
+        {
+            posRow = endingRow;
+            posCol = mazeWidth - 1;
             break;
+        }
 
         if (posRow == endingRow && posCol == mazeWidth-1)
             break;
@@ -60,8 +59,6 @@ TempWalking::TempWalking(int **mazeTab, int mazeHeight, int mazeWidth, int start
     QueryPerformanceCounter (&uTicks);
     a = uTicks.QuadPart - a;
 
-    system("cls");
-    printIntTab(mazeTab, posRow, posCol, mazeHeight, mazeWidth);
+    printIntTab(mazeTab, posRow, posCol, mazeHeight, mazeWidth, 1);
     cout << "\nWygrana!\nCzas przechodzenia: " << a/b << endl;
 }
-*/

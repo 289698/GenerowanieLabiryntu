@@ -28,17 +28,13 @@ public:
 
     MazeGen(int **adress, int mazeH, int mazeW);
     ~MazeGen();
-    void generateMaze();
+    void generateMaze(int startingRow, int endingRow);
 
 private:
 
     Borders **bordersTab;
     bool **visitedTab;
     int **mazeTab;
-
-    LARGE_INTEGER uTicks;
-    LARGE_INTEGER uFreq;
-    double ticks, freq;
 
     int mazeHeight, mazeWidth;
 
@@ -55,6 +51,7 @@ private:
     void reserveBoolMemory (bool **&adress, int w, int k);
     void clearBoolMemory (bool **&adress, int w);
     void resetBordersTab(); //
+    void resetVisitedTab(); //
 };
 
 #endif // MAZEGEN_H

@@ -7,10 +7,12 @@ SOURCES += main.cpp \
     mazeclass.cpp \
     mazegen.cpp \
     tempprint.cpp \
-    tempwalking.cpp
+    tempwalking.cpp \
+    filemanaging.cpp
 
 HEADERS += \
     mazeclass.h \
     mazegen.h \
     tempprint.h \
-    tempwalking.h
+    tempwalking.h \
+    filemanaging.h
