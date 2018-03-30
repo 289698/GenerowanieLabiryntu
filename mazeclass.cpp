@@ -2,19 +2,19 @@
 
 MazeClass::MazeClass()
 {
-    cout << "Wpisz poczatkowe dane (wysososc, szerokosc)\n\n";
+    cout << "Wpisz poczatkowe dane (zalecane: wysososc <5,40>, szerokosc <10,90>, trudnosc {1,2,3})\n\n";
 
     mazeHeight = getIntValue();
     mazeWidth = getIntValue();
+    int difficulty = getIntValue();
 
     startingRow = rand() % mazeHeight;
-    endingRow = rand() % mazeHeight;
 
     reserveIntMemory(mazeTab, mazeHeight, mazeWidth);
 
-    generating = new MazeGen(mazeTab, mazeHeight, mazeWidth);
+    generating = new MazeGen(mazeTab, mazeHeight, mazeWidth, difficulty);
 
-    generating->generateMaze(startingRow, endingRow);
+    endingRow = generating->generateMaze(startingRow);
 
     delete generating;
 

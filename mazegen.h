@@ -5,6 +5,7 @@
 #include <windows.h>
 #include <ctime>
 #include <cstdlib>
+#include <tempprint.h>
 
 using namespace std;
 
@@ -26,9 +27,9 @@ class MazeGen
 {
 public:
 
-    MazeGen(int **adress, int mazeH, int mazeW);
+    MazeGen(int **adress, int mazeH, int mazeW, int difficulty);
     ~MazeGen();
-    void generateMaze(int startingRow, int endingRow);
+    int generateMaze(int startingRow);
 
 private:
 
@@ -36,7 +37,7 @@ private:
     bool **visitedTab;
     int **mazeTab;
 
-    int mazeHeight, mazeWidth;
+    int mazeHeight, mazeWidth, minLength, maxLength;
 
     bool findNextPoint(PointXY &currentPos);
     void makeStartingPath(PointXY currentPos, int &counter, bool &a);
@@ -46,6 +47,7 @@ private:
     void rewriteTab();
     void createVisitedTab();
 
+    void tempDiff(int difficulty); //
     void reserveBordersMemory ();
     void clearBordersMemory ();
     void reserveBoolMemory (bool **&adress, int w, int k);

@@ -1,15 +1,15 @@
 #include "mazegen.h"
 
-MazeGen::MazeGen(int **adress, int mazeH, int mazeW)
+MazeGen::MazeGen(int **adress, int mazeH, int mazeW, int difficulty)
 {
     mazeTab = adress;
     mazeHeight = mazeH;
     mazeWidth = mazeW;
 
+    tempDiff(difficulty);
+
     reserveBordersMemory();
     reserveBoolMemory(visitedTab, mazeHeight, mazeWidth);
-
-    resetVisitedTab();
 }
 
 MazeGen::~MazeGen()
@@ -18,11 +18,37 @@ MazeGen::~MazeGen()
     clearBoolMemory(visitedTab, mazeHeight);
 }
 
-void MazeGen::generateMaze(int startingRow, int endingRow)
+int MazeGen::generateMaze(int startingRow)
 {
+    int endingRow;
     PointXY currentPos;
-    currentPos.row = rand() % mazeHeight;
-    currentPos.col = rand() % mazeWidth;
+    currentPos.row = startingRow;
+    currentPos.col = 0;
+
+    bool a = 0;
+    int counter;
+
+    do
+    {
+        counter = 0;
+        resetBordersTab();
+        resetVisitedTab();
+        makeStartingPath(currentPos, counter, a);
+    }
+    while (a);
+
+    //*
+    endingRow = currentPos.row;
+
+    cout << endl <<  counter << endl << minLength << " - " << maxLength << endl;
+    rewriteTab();
+
+    printIntTab(mazeTab, startingRow, 0, mazeHeight, mazeWidth, 0);
+    cout << "\nWcisnij ENTER";
+
+    cin.get();
+    cin.ignore();
+    //*/
 
     do
         makeRandomPath(currentPos, randomDirection(currentPos));
@@ -35,6 +61,49 @@ void MazeGen::generateMaze(int startingRow, int endingRow)
 
     rewriteTab();
 
+    return endingRow;
+}
+
+void MazeGen::makeStartingPath(PointXY currentPos, int &counter, bool &a)
+{
+    visitedTab[currentPos.row][currentPos.col] = 1;
+    char direction;
+    direction = randomDirection(currentPos);
+
+    if (direction == 'X')
+    {
+        a = 1;
+        return;
+    }
+
+    if (currentPos.col == mazeWidth-1 && counter >= minLength && counter <=maxLength)
+    {
+        a = 0;
+        return;
+    }
+
+    if (direction == 'N')
+    {
+        *(bordersTab[currentPos.row][currentPos.col].N) = 0;
+        currentPos.row--;
+    }
+    if (direction == 'E')
+    {
+        *(bordersTab[currentPos.row][currentPos.col].E) = 0;
+        currentPos.col++;
+    }
+    if (direction == 'S')
+    {
+        *(bordersTab[currentPos.row][currentPos.col].S) = 0;
+        currentPos.row++;
+    }
+    if (direction == 'W')
+    {
+        *(bordersTab[currentPos.row][currentPos.col].W) = 0;
+        currentPos.col--;
+    }
+    counter++;
+    makeStartingPath(currentPos, counter, a);
     return;
 }
 
@@ -161,6 +230,13 @@ bool MazeGen::findNextPoint(PointXY &currentPos)
     return 0;
 }
 
+void MazeGen::tempDiff(int difficulty)
+{
+    minLength = (mazeHeight + mazeWidth) * difficulty;
+    maxLength = (mazeHeight + mazeWidth) * difficulty * 1.5;
+    return;
+}
+
 void MazeGen::resetVisitedTab()
 {
     for (int i=0; i<mazeHeight; i++)
@@ -193,11 +269,16 @@ void MazeGen::reserveBordersMemory()
     for (int i=0; i<mazeHeight; i++)
         for (int j=0; j<mazeWidth; j++)
         {
-            bordersTab[i][j].N = new bool;
             bordersTab[i][j].E = new bool;
             bordersTab[i][j].S = new bool;
-            bordersTab[i][j].W = new bool;
         }
+
+    for (int i=0; i<mazeHeight; i++)
+        bordersTab[i][0].W = new bool;
+
+    for (int j=0; j<mazeWidth; j++)
+        bordersTab[0][j].N = new bool;
+
 
     for (int i=1; i<mazeHeight; i++)
         for(int j=1; j<mazeWidth; j++)
@@ -211,8 +292,6 @@ void MazeGen::reserveBordersMemory()
 
     for (int j=1; j<mazeWidth; j++)
         bordersTab[0][j].W = bordersTab[0][j-1].E;
-
-    resetBordersTab();
 }
 
 void MazeGen::resetBordersTab()
