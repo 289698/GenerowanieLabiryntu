@@ -1,18 +1,26 @@
+#-------------------------------------------------
+#
+# Project created by QtCreator 2018-04-03T03:25:31
+#
+#-------------------------------------------------
+
+QT       += core gui
+
+greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
+
+TARGET = GenerowanieLabiryntu
 TEMPLATE = app
-CONFIG += console c++11
-CONFIG -= app_bundle
-CONFIG -= qt
 
-SOURCES += main.cpp \
-    mazeclass.cpp \
-    mazegen.cpp \
-    tempprint.cpp \
-    tempwalking.cpp \
-    filemanaging.cpp
 
-HEADERS += \
-    mazeclass.h \
-    mazegen.h \
-    tempprint.h \
-    tempwalking.h \
-    filemanaging.h
+SOURCES += main.cpp\
+        mainwindow.cpp \
+    filemanaging.cpp \
+    generating.cpp \
+    drawing.cpp
+
+HEADERS  += mainwindow.h \
+    filemanaging.h \
+    generating.h \
+    drawing.h
+
+FORMS    += mainwindow.ui
