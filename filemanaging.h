@@ -10,8 +10,8 @@ class FileManaging
 public:
 
     FileManaging();
-    void saveMaze(int **mazeTab, int mazeHeight, int mazeWidth, string fileName);
-    void loadMaze(int **&mazeTab, int mazeHeight, int mazeWidth);
+    void saveMaze(int **mazeArray, int mazeHeight, int mazeWidth, string fileName);
+    void loadMaze(int **&mazeArray, int mazeHeight, int mazeWidth);
 
 protected:
 

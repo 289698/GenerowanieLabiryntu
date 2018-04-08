@@ -26,15 +26,15 @@ class Generating
 {
 public:
 
-    Generating(int **adress, int mazeH, int mazeW, int difficulty);
+    Generating(int **adress, int mazeHeight, int mazeWidth, int difficulty);
     ~Generating();
     int generateMaze(int startingRow);
 
 private:
 
-    Borders **bordersTab;
-    bool **visitedTab;
-    int **mazeTab;
+    Borders **bordersArray;
+    bool **visitedArray;
+    int **mazeArray;
 
     int mazeHeight, mazeWidth, minLength, maxLength;
 
@@ -43,16 +43,16 @@ private:
     void makeRandomPath(PointXY &currentPos, char direction);
     char randomDirection(PointXY currentPos);
 
-    void rewriteTab();
-    void createVisitedTab();
+    void rewriteArray();
+    void createvisitedArray();
 
     void tempDiff(int difficulty); //
     void reserveBordersMemory ();
     void clearBordersMemory ();
     void reserveBoolMemory (bool **&adress, int w, int k);
     void clearBoolMemory (bool **&adress, int w);
-    void resetBordersTab(); //
-    void resetVisitedTab(); //
+    void resetbordersArray(); //
+    void resetvisitedArray(); //
 };
 
 #endif // GENERATING_H

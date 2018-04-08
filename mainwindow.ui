@@ -6,63 +6,54 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>933</width>
-    <height>620</height>
+    <width>464</width>
+    <height>320</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>MainWindow</string>
   </property>
-  <widget class="QWidget" name="centralWidget">
-   <widget class="QPushButton" name="pb_drawMaze">
-    <property name="geometry">
-     <rect>
-      <x>400</x>
-      <y>270</y>
-      <width>80</width>
-      <height>21</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>Rysuj Labirynt</string>
-    </property>
-   </widget>
-  </widget>
+  <widget class="QWidget" name="centralWidget"/>
   <widget class="QMenuBar" name="menuBar">
    <property name="geometry">
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>933</width>
+     <width>464</width>
      <height>20</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuPlik">
     <property name="title">
-     <string>Plik</string>
+     <string>Gra</string>
     </property>
-    <addaction name="actionNowy_labirynt"/>
-    <addaction name="actionOtw_rz"/>
+    <addaction name="actionEasy"/>
+    <addaction name="actionMedium"/>
+    <addaction name="actionHard"/>
+    <addaction name="actionExpert"/>
     <addaction name="separator"/>
-    <addaction name="actionZapisz"/>
-    <addaction name="actionZapisz_jako"/>
-    <addaction name="separator"/>
-    <addaction name="actionZamknij_labirynt"/>
-    <addaction name="separator"/>
-    <addaction name="actionWyjd"/>
-   </widget>
-   <widget class="QMenu" name="menuOpcje">
-    <property name="title">
-     <string>Opcje</string>
-    </property>
+    <addaction name="actionCustomSettings"/>
    </widget>
    <widget class="QMenu" name="menuPomoc">
     <property name="title">
      <string>Pomoc</string>
     </property>
    </widget>
+   <widget class="QMenu" name="menuPlik_2">
+    <property name="title">
+     <string>Plik</string>
+    </property>
+    <addaction name="actionOpen"/>
+    <addaction name="separator"/>
+    <addaction name="actionSave"/>
+    <addaction name="actionSaveAs"/>
+    <addaction name="separator"/>
+    <addaction name="actionCloseMaze"/>
+    <addaction name="separator"/>
+    <addaction name="actionExit"/>
+   </widget>
+   <addaction name="menuPlik_2"/>
    <addaction name="menuPlik"/>
-   <addaction name="menuOpcje"/>
    <addaction name="menuPomoc"/>
   </widget>
   <widget class="QToolBar" name="mainToolBar">
@@ -74,34 +65,60 @@
    </attribute>
   </widget>
   <widget class="QStatusBar" name="statusBar"/>
-  <action name="actionOtw_rz">
+  <action name="actionOpen">
    <property name="text">
-    <string>Otwórz</string>
+    <string>Otwórz z pliku...</string>
+   </property>
+   <property name="toolTip">
+    <string>Otwórz z pliku...</string>
    </property>
   </action>
-  <action name="actionNowy_labirynt">
-   <property name="text">
-    <string>Nowy labirynt</string>
-   </property>
-  </action>
-  <action name="actionZapisz">
+  <action name="actionSave">
    <property name="text">
     <string>Zapisz</string>
    </property>
   </action>
-  <action name="actionZapisz_jako">
+  <action name="actionSaveAs">
    <property name="text">
-    <string>Zapisz jako..</string>
+    <string>Zapisz jako...</string>
+   </property>
+   <property name="toolTip">
+    <string>Zapisz jako...</string>
    </property>
   </action>
-  <action name="actionZamknij_labirynt">
+  <action name="actionCloseMaze">
    <property name="text">
     <string>Zamknij labirynt</string>
    </property>
   </action>
-  <action name="actionWyjd">
+  <action name="actionExit">
    <property name="text">
     <string>Wyjdź</string>
+   </property>
+  </action>
+  <action name="actionEasy">
+   <property name="text">
+    <string>Łatwy</string>
+   </property>
+  </action>
+  <action name="actionMedium">
+   <property name="text">
+    <string>Średni</string>
+   </property>
+  </action>
+  <action name="actionHard">
+   <property name="text">
+    <string>Trudny</string>
+   </property>
+  </action>
+  <action name="actionExpert">
+   <property name="text">
+    <string>Ekspert</string>
+   </property>
+  </action>
+  <action name="actionCustomSettings">
+   <property name="text">
+    <string>Własny</string>
    </property>
   </action>
  </widget>

@@ -5,11 +5,8 @@
 
 class Drawing
 {
+
 public:
-    Drawing();
-    ~Drawing();
-
-    void drawMaze(QPainter *painter);
+    void drawMaze(QPainter *painter, int **mazeArray, int mazeHeight, int mazeWidth);
 };
-
 #endif // DRAWING_H
