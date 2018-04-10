@@ -45,6 +45,8 @@ private slots:
 
     void on_pushButton_play_clicked();
 
+    void on_checkBox_superUser_clicked();
+
 private:
     Ui::MainWindow *ui;
     Generating *mazeGen;

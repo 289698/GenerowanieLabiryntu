@@ -58,7 +58,7 @@
     <item row="1" column="1">
      <widget class="QGroupBox" name="groupBox_text">
       <property name="title">
-       <string>Dodatkowe informacje:</string>
+       <string>Dodatkowe informacje@:</string>
       </property>
       <layout class="QVBoxLayout" name="verticalLayout_5"/>
      </widget>
@@ -72,21 +72,28 @@
        <item>
         <widget class="QCheckBox" name="checkBox_colour">
          <property name="text">
-          <string>Kolorowy labirynt</string>
+          <string>Kolorowy labirynt@</string>
          </property>
         </widget>
        </item>
        <item>
         <widget class="QCheckBox" name="checkBox_reducedView">
          <property name="text">
-          <string>Ograniczony widok</string>
+          <string>Ograniczony widok@</string>
          </property>
         </widget>
        </item>
        <item>
         <widget class="QCheckBox" name="checkBox_time">
          <property name="text">
-          <string>Gra na czas</string>
+          <string>Gra na czas@</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QCheckBox" name="checkBox_superUser">
+         <property name="text">
+          <string>Wiem co robię !</string>
          </property>
         </widget>
        </item>
@@ -176,7 +183,7 @@
     <item row="2" column="0" colspan="2">
      <widget class="QPushButton" name="pushButton_play">
       <property name="text">
-       <string>GRAMY</string>
+       <string>! GRAMY !</string>
       </property>
      </widget>
     </item>

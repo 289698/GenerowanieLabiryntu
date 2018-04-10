@@ -236,3 +236,16 @@ void MainWindow::on_pushButton_play_clicked()
 
     update();
 }
+
+void MainWindow::on_checkBox_superUser_clicked()
+{
+    ui->spinBox_height->setMaximum(1000);
+    ui->spinBox_width->setMaximum(1000);
+    ui->spinBox_size->setMaximum(1000);
+
+    ui->spinBox_height->setMinimum(0);
+    ui->spinBox_width->setMinimum(0);
+    ui->spinBox_size->setMinimum(0);
+
+    ui->checkBox_superUser->hide();
+}
