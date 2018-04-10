@@ -10,6 +10,8 @@ Generating::Generating(int **adress, int mazeHeight, int mazeWidth, int difficul
 
     reserveBordersMemory();
     reserveBoolMemory(visitedArray, this->mazeHeight, this->mazeWidth);
+
+    srand(time(0));
 }
 
 Generating::~Generating()
@@ -18,10 +20,10 @@ Generating::~Generating()
     clearBoolMemory(visitedArray, mazeHeight);
 }
 
-int Generating::generateMaze(int startingRow)
+int Generating::generateMaze(int &startingRow, int &endingRow)
 {
-    int endingRow;
     PointXY currentPos;
+    startingRow = rand() % mazeHeight;
     currentPos.row = startingRow;
     currentPos.col = 0;
 
@@ -51,7 +53,7 @@ int Generating::generateMaze(int startingRow)
     return endingRow;
 }
 
-void Generating::makeStartingPath(PointXY currentPos, int &counter, bool &a)
+void Generating::makeStartingPath(PointXY &currentPos, int &counter, bool &a)
 {
     visitedArray[currentPos.row][currentPos.col] = 1;
     char direction;

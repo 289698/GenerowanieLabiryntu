@@ -3,6 +3,8 @@
 
 #include <QDialog>
 
+#include <mainwindow.h>
+
 namespace Ui {
 class CustomSettingsDialog;
 }
@@ -14,6 +16,8 @@ class CustomSettingsDialog : public QDialog
 public:
     explicit CustomSettingsDialog(QWidget *parent = 0);
     ~CustomSettingsDialog();
+
+private slots:
 
 private:
     Ui::CustomSettingsDialog *ui;

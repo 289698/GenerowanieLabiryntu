@@ -28,7 +28,7 @@ public:
 
     Generating(int **adress, int mazeHeight, int mazeWidth, int difficulty);
     ~Generating();
-    int generateMaze(int startingRow);
+    int generateMaze(int &startingRow, int &endingRow);
 
 private:
 
@@ -39,7 +39,7 @@ private:
     int mazeHeight, mazeWidth, minLength, maxLength;
 
     bool findNextPoint(PointXY &currentPos);
-    void makeStartingPath(PointXY currentPos, int &counter, bool &a);
+    void makeStartingPath(PointXY &currentPos, int &counter, bool &a);
     void makeRandomPath(PointXY &currentPos, char direction);
     char randomDirection(PointXY currentPos);
 

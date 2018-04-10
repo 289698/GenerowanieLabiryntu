@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+﻿<?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
  <class>MainWindow</class>
  <widget class="QMainWindow" name="MainWindow">
@@ -6,43 +6,215 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>464</width>
-    <height>320</height>
+    <width>351</width>
+    <height>355</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>MainWindow</string>
   </property>
-  <widget class="QWidget" name="centralWidget"/>
+  <widget class="QWidget" name="centralWidget">
+   <layout class="QGridLayout" name="gridLayout">
+    <item row="0" column="1">
+     <widget class="QGroupBox" name="groupBox_difficulty">
+      <property name="title">
+       <string>Trudność labiryntu:</string>
+      </property>
+      <layout class="QVBoxLayout" name="verticalLayout">
+       <item>
+        <widget class="QRadioButton" name="radioButton_Easy">
+         <property name="text">
+          <string>Łatwa</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QRadioButton" name="radioButton_Medium">
+         <property name="text">
+          <string>Średnia</string>
+         </property>
+         <property name="checked">
+          <bool>true</bool>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QRadioButton" name="radioButton_Hard">
+         <property name="text">
+          <string>Trudna</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QRadioButton" name="radioButton_Expert">
+         <property name="text">
+          <string>Pojebana</string>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+    </item>
+    <item row="1" column="1">
+     <widget class="QGroupBox" name="groupBox_text">
+      <property name="title">
+       <string>Dodatkowe informacje:</string>
+      </property>
+      <layout class="QVBoxLayout" name="verticalLayout_5"/>
+     </widget>
+    </item>
+    <item row="1" column="0">
+     <widget class="QGroupBox" name="groupBox_options">
+      <property name="title">
+       <string>Dodatkowe opcje:</string>
+      </property>
+      <layout class="QVBoxLayout" name="verticalLayout_2">
+       <item>
+        <widget class="QCheckBox" name="checkBox_colour">
+         <property name="text">
+          <string>Kolorowy labirynt</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QCheckBox" name="checkBox_reducedView">
+         <property name="text">
+          <string>Ograniczony widok</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QCheckBox" name="checkBox_time">
+         <property name="text">
+          <string>Gra na czas</string>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+    </item>
+    <item row="0" column="0">
+     <widget class="QGroupBox" name="groupBox_main">
+      <property name="title">
+       <string>Głowne opcje:</string>
+      </property>
+      <layout class="QHBoxLayout" name="horizontalLayout">
+       <item>
+        <layout class="QVBoxLayout" name="verticalLayout_4">
+         <item>
+          <widget class="QLabel" name="label_height">
+           <property name="text">
+            <string>Wysokość labiryntu:</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLabel" name="label_width">
+           <property name="text">
+            <string>Szerokość labiryntu:</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLabel" name="label_size">
+           <property name="text">
+            <string>Rozmiar labiryntu:</string>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </item>
+       <item>
+        <layout class="QVBoxLayout" name="verticalLayout_3">
+         <item>
+          <widget class="QSpinBox" name="spinBox_height">
+           <property name="minimum">
+            <number>20</number>
+           </property>
+           <property name="maximum">
+            <number>100</number>
+           </property>
+           <property name="singleStep">
+            <number>5</number>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QSpinBox" name="spinBox_width">
+           <property name="minimum">
+            <number>20</number>
+           </property>
+           <property name="maximum">
+            <number>100</number>
+           </property>
+           <property name="singleStep">
+            <number>5</number>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QSpinBox" name="spinBox_size">
+           <property name="minimum">
+            <number>5</number>
+           </property>
+           <property name="maximum">
+            <number>30</number>
+           </property>
+           <property name="singleStep">
+            <number>5</number>
+           </property>
+           <property name="value">
+            <number>15</number>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </item>
+      </layout>
+     </widget>
+    </item>
+    <item row="2" column="0" colspan="2">
+     <widget class="QPushButton" name="pushButton_play">
+      <property name="text">
+       <string>GRAMY</string>
+      </property>
+     </widget>
+    </item>
+   </layout>
+  </widget>
   <widget class="QMenuBar" name="menuBar">
+   <property name="enabled">
+    <bool>true</bool>
+   </property>
    <property name="geometry">
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>464</width>
+     <width>351</width>
      <height>20</height>
     </rect>
    </property>
-   <widget class="QMenu" name="menuPlik">
+   <widget class="QMenu" name="menuGame">
     <property name="title">
-     <string>Gra</string>
+     <string>Labirynt</string>
     </property>
     <addaction name="actionEasy"/>
     <addaction name="actionMedium"/>
     <addaction name="actionHard"/>
     <addaction name="actionExpert"/>
     <addaction name="separator"/>
-    <addaction name="actionCustomSettings"/>
+    <addaction name="actionRankingi"/>
    </widget>
    <widget class="QMenu" name="menuPomoc">
     <property name="title">
-     <string>Pomoc</string>
+     <string>Pomoc@</string>
     </property>
    </widget>
-   <widget class="QMenu" name="menuPlik_2">
+   <widget class="QMenu" name="menuFile">
     <property name="title">
      <string>Plik</string>
     </property>
+    <addaction name="actionNew"/>
     <addaction name="actionOpen"/>
     <addaction name="separator"/>
     <addaction name="actionSave"/>
@@ -52,13 +224,19 @@
     <addaction name="separator"/>
     <addaction name="actionExit"/>
    </widget>
-   <addaction name="menuPlik_2"/>
-   <addaction name="menuPlik"/>
+   <addaction name="menuFile"/>
+   <addaction name="menuGame"/>
    <addaction name="menuPomoc"/>
   </widget>
   <widget class="QToolBar" name="mainToolBar">
+   <property name="enabled">
+    <bool>true</bool>
+   </property>
+   <property name="movable">
+    <bool>false</bool>
+   </property>
    <attribute name="toolBarArea">
-    <enum>LeftToolBarArea</enum>
+    <enum>TopToolBarArea</enum>
    </attribute>
    <attribute name="toolBarBreak">
     <bool>false</bool>
@@ -67,7 +245,7 @@
   <widget class="QStatusBar" name="statusBar"/>
   <action name="actionOpen">
    <property name="text">
-    <string>Otwórz z pliku...</string>
+    <string>Otwórz z pliku...@</string>
    </property>
    <property name="toolTip">
     <string>Otwórz z pliku...</string>
@@ -75,12 +253,15 @@
   </action>
   <action name="actionSave">
    <property name="text">
+    <string>Zapisz@</string>
+   </property>
+   <property name="toolTip">
     <string>Zapisz</string>
    </property>
   </action>
   <action name="actionSaveAs">
    <property name="text">
-    <string>Zapisz jako...</string>
+    <string>Zapisz jako...@</string>
    </property>
    <property name="toolTip">
     <string>Zapisz jako...</string>
@@ -90,39 +271,91 @@
    <property name="text">
     <string>Zamknij labirynt</string>
    </property>
+   <property name="shortcut">
+    <string>Alt+C</string>
+   </property>
   </action>
   <action name="actionExit">
    <property name="text">
     <string>Wyjdź</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+Q</string>
    </property>
   </action>
   <action name="actionEasy">
    <property name="text">
     <string>Łatwy</string>
    </property>
+   <property name="shortcut">
+    <string>Alt+A</string>
+   </property>
   </action>
   <action name="actionMedium">
    <property name="text">
     <string>Średni</string>
+   </property>
+   <property name="shortcut">
+    <string>Alt+S</string>
    </property>
   </action>
   <action name="actionHard">
    <property name="text">
     <string>Trudny</string>
    </property>
+   <property name="shortcut">
+    <string>Alt+D</string>
+   </property>
   </action>
   <action name="actionExpert">
    <property name="text">
-    <string>Ekspert</string>
+    <string>Ekspert (~15s)</string>
+   </property>
+   <property name="shortcut">
+    <string>Alt+F</string>
    </property>
   </action>
-  <action name="actionCustomSettings">
+  <action name="actionRankingi">
    <property name="text">
-    <string>Własny</string>
+    <string>Rankingi@</string>
+   </property>
+  </action>
+  <action name="actionNew">
+   <property name="text">
+    <string>Nowy</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+N</string>
    </property>
   </action>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
+ <tabstops>
+  <tabstop>radioButton_Easy</tabstop>
+  <tabstop>radioButton_Medium</tabstop>
+  <tabstop>radioButton_Hard</tabstop>
+  <tabstop>radioButton_Expert</tabstop>
+  <tabstop>checkBox_colour</tabstop>
+  <tabstop>checkBox_reducedView</tabstop>
+  <tabstop>checkBox_time</tabstop>
+ </tabstops>
  <resources/>
- <connections/>
+ <connections>
+  <connection>
+   <sender>actionExit</sender>
+   <signal>triggered()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>close()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>213</x>
+     <y>176</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
 </ui>

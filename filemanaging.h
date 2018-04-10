@@ -1,6 +1,6 @@
 #ifndef FILEMANAGING_H
 #define FILEMANAGING_H
-#include <iostream>
+
 #include <fstream>
 
 using namespace std;
