@@ -208,8 +208,8 @@ void MainWindow::on_actionCloseMaze_triggered()
 
 void MainWindow::on_actionNew_triggered()
 {
-    Dialog popup;
-    popup.exec();
+    deleteIntArray();
+
     update();
 }
 

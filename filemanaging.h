@@ -11,7 +11,7 @@ public:
 
     FileManaging();
     void saveMaze(int **mazeArray, int mazeHeight, int mazeWidth, string fileName);
-    void loadMaze(int **&mazeArray, int &mazeHeight, int &mazeWidth, string fileName);
+    void loadMaze(int **&mazeArray, int mazeHeight, int mazeWidth);
 
 protected:
 
