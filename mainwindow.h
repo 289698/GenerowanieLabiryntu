@@ -5,9 +5,8 @@
 #include <QPainter>
 
 #include <generating.h>
+#include <dialog.h>
 //#include <filemanaging.h>
-
-#include <customsettingsdialog.h>
 
 namespace Ui {
 class MainWindow;

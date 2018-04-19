@@ -16,14 +16,12 @@ SOURCES += main.cpp\
         mainwindow.cpp \
     filemanaging.cpp \
     generating.cpp \
-    drawing.cpp \
-    customsettingsdialog.cpp
+    dialog.cpp
 
 HEADERS  += mainwindow.h \
     filemanaging.h \
     generating.h \
-    drawing.h \
-    customsettingsdialog.h
+    dialog.h
 
 FORMS    += mainwindow.ui \
-    customsettingsdialog.ui
+    dialog.ui
