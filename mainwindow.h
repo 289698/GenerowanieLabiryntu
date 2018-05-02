@@ -2,12 +2,10 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
+#include <QTimer>
 #include <QPainter>
-
-#include <generating.h>
-//#include <filemanaging.h>
-
-#include <customsettingsdialog.h>
+#include <QKeyEvent>
+#include "mazemanagment.h"
 
 namespace Ui {
 class MainWindow;
@@ -20,7 +18,6 @@ class MainWindow : public QMainWindow
 public:
     explicit MainWindow(QWidget *parent = 0);
     ~MainWindow();
-//    int posX = 50, posY = 50;
 
 private slots:
     void on_actionEasy_triggered();
@@ -33,6 +30,8 @@ private slots:
 
     void on_actionRankingi_triggered();
 
+    void on_actionNew_triggered();
+
     void on_actionOpen_triggered();
 
     void on_actionSave_triggered();
@@ -41,31 +40,32 @@ private slots:
 
     void on_actionCloseMaze_triggered();
 
-    void on_actionNew_triggered();
-
     void on_pushButton_play_clicked();
 
     void on_checkBox_superUser_clicked();
 
+    void measureTime();
+
 private:
     Ui::MainWindow *ui;
-    Generating *mazeGen;
-    //FileManaging *mazeSave;
+    MazeManagment *game;
+    QTimer *timer = NULL;
 
-    int **mazeArray = NULL;
-    int mazeHeight, mazeWidth, mazeSize = 15, mazeDifficulty = 1;
-    int marginTop, marginLeft;
-    int startingPoint, endingPoint;
+    const int marginTop = 65, marginLeft = 20, timeInterval = 100;
+    int mazeSize = 7;
 
-    void generateMazeArray();
-    void setMazeProperties(int mazeHeight, int mazeWidth, int mazeDifficulty);
-    void newIntArray();
-    void deleteIntArray();
+    void keyPressEvent(QKeyEvent *event);
+    bool isMovePossible(int direction);
+    void finish();
 
-    void paintEvent (QPaintEvent *);
-    void drawMaze (QPainter *painter);
+    void paintEvent(QPaintEvent *);
+    void drawSquare(QPainter *painter, QPoint pos, int borders);
+    QPoint grid(int x, int y);
+    QPoint grid(QPoint point);
     void hideAll();
     void showAll();
+
+    void prepareMaze(int height, int width, int difficulty);
 };
 
 #endif // MAINWINDOW_H

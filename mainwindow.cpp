@@ -7,28 +7,117 @@ MainWindow::MainWindow(QWidget *parent) :
 {
     ui->setupUi(this);
     ui->mainToolBar->hide();
-    marginTop = mazeSize + 25;
-    marginLeft = mazeSize + 5;
+    ui->lcd_time->hide();
+    ui->lcd_time->setFixedHeight(20);
+    this->setFixedSize(350, 350);
+
+    game = new MazeManagment;
+    timer = new QTimer(this);
+    connect(timer, SIGNAL(timeout()), this, SLOT(measureTime()));
 }
 
 MainWindow::~MainWindow()
 {
-    deleteIntArray();
+    delete timer;
+    delete game;
     delete ui;
+}
+
+void MainWindow::measureTime()
+{
+    game->maze.seconds += timeInterval/1000.0;
+    ui->lcd_time->display(game->maze.seconds);
+}
+
+void MainWindow::keyPressEvent(QKeyEvent *event)
+{
+    if (game->maze.array == NULL)
+        return;
+
+    switch (event->key())
+    {
+    case Qt::Key_W:
+        if(isMovePossible(1))
+            game->maze.currentPos.ry()--;
+        break;
+    case Qt::Key_A:
+        if(isMovePossible(8))
+            game->maze.currentPos.rx()--;
+        break;
+    case Qt::Key_S:
+        if(isMovePossible(4))
+            game->maze.currentPos.ry()++;
+        break;
+    case Qt::Key_D:
+        if(isMovePossible(2))
+            game->maze.currentPos.rx()++;
+        break;
+    case Qt::Key_P:
+        game->maze.currentPos.setX(game->maze.width-1);
+        game->maze.currentPos.setY(game->maze.end);
+        break;
+    }
+
+    if (game->maze.currentPos.x() == game->maze.width)
+        finish();
+
+//    QString text = "X:" + QString::number(game->currentPos.x()) + " Y:" + QString::number(game->currentPos.y()) + "   Usuń mnie";
+//    ui->statusBar->showMessage(text);
+
+    update();
+}
+
+bool MainWindow::isMovePossible(int direction)
+{
+    return !(game->maze.array[game->maze.currentPos.y()][game->maze.currentPos.x()] & direction);
+}
+
+void MainWindow::finish()
+{
+    //zrob cos fajnego
+    //game->deleteMaze();
+    timer->stop();
 }
 
 void MainWindow::paintEvent(QPaintEvent *)
 {
-    if(mazeArray == NULL)
-    {
-        this->resize(350, 300);
-        showAll();
+    if (game->maze.array == NULL)
         return;
-    }
 
     QPainter painter(this);
-    drawMaze(&painter);
-    hideAll();
+    for (int i=0; i<game->maze.height; i++)
+        for (int j=0; j<game->maze.width; j++)
+            drawSquare(&painter, grid(j, i), game->maze.array[i][j]);
+
+    painter.setBrush(Qt::black);
+    painter.drawEllipse(grid(game->maze.currentPos), mazeSize/2, mazeSize/2);
+}
+
+void MainWindow::drawSquare(QPainter *painter, QPoint point, int borders)
+{
+    if (borders & 1)
+        painter->drawLine(point.x() - mazeSize, point.y() - mazeSize, point.x() + mazeSize, point.y() - mazeSize);
+    if (borders & 2)
+        painter->drawLine(point.x() + mazeSize, point.y() - mazeSize, point.x() + mazeSize, point.y() + mazeSize);
+    if (borders & 4)
+        painter->drawLine(point.x() + mazeSize, point.y() + mazeSize, point.x() - mazeSize, point.y() + mazeSize);
+    if (borders & 8)
+        painter->drawLine(point.x() - mazeSize, point.y() + mazeSize, point.x() - mazeSize, point.y() - mazeSize);
+}
+
+QPoint MainWindow::grid(int x, int y)
+{
+    QPoint point;
+    point.setX(x * mazeSize*2 + marginLeft);
+    point.setY(y * mazeSize*2 + marginTop);
+    return point;
+}
+
+QPoint MainWindow::grid(QPoint point)
+{
+    point.setX(point.x() * mazeSize*2 + marginLeft);
+    point.setY(point.y() * mazeSize*2 + marginTop);
+    return point;
 }
 
 void MainWindow::showAll()
@@ -38,6 +127,7 @@ void MainWindow::showAll()
     ui->groupBox_options->show();
     ui->groupBox_text->show();
     ui->pushButton_play->show();
+    ui->lcd_time->hide();
 }
 
 void MainWindow::hideAll()
@@ -47,194 +137,91 @@ void MainWindow::hideAll()
     ui->groupBox_options->hide();
     ui->groupBox_text->hide();
     ui->pushButton_play->hide();
-}
-
-void MainWindow::drawMaze(QPainter *painter)
-{
-    int x = marginLeft, y = marginTop;
-
-    for (int i=0; i<mazeHeight; i++)
-    {
-        x = marginLeft;
-
-        for (int j=0; j<mazeWidth; j++)
-        {
-            if (mazeArray[i][j] & 1)
-                painter->drawLine(x, y, x + mazeSize, y);
-
-            if (mazeArray[i][j] & 2)
-                painter->drawLine(x + mazeSize, y, x + mazeSize, y + mazeSize);
-
-            if (mazeArray[i][j] & 4)
-                painter->drawLine(x, y + mazeSize, x + mazeSize, y + mazeSize);
-
-            if (mazeArray[i][j] & 8)
-                painter->drawLine(x, y, x, y + mazeSize);
-
-            x += mazeSize + 1;
-        }
-
-        y += mazeSize + 1;
-    }
-
-    painter->drawRect(marginLeft-1, marginTop-1, x-marginLeft+1, y-marginTop+1);
-
-    painter->eraseRect(marginLeft-1, startingPoint*(mazeSize+1) + marginTop, 2, mazeSize);
-    painter->eraseRect(x, endingPoint*(mazeSize+1) + marginTop, 2, mazeSize);
-
-    painter->drawRect(marginLeft, startingPoint*(mazeSize+1) + marginTop, -mazeSize/2, -1);
-    painter->drawRect(marginLeft, (startingPoint+1)*(mazeSize+1) + marginTop, -mazeSize/2, -1);
-
-    painter->drawRect(x, endingPoint*(mazeSize+1) + marginTop, mazeSize/2, -1);
-    painter->drawRect(x, (endingPoint+1)*(mazeSize+1) + marginTop, mazeSize/2, -1);
-
-    this->resize(x + marginLeft, y + marginLeft);
-}
-
-void MainWindow::newIntArray()
-{
-    if (mazeArray != NULL)
-        return;
-
-    mazeArray = new int *[mazeHeight];
-        for (int i=0; i<mazeHeight; i++)
-    mazeArray[i] = new int [mazeWidth];
-}
-
-void MainWindow::deleteIntArray ()
-{
-    if (mazeArray == NULL)
-        return;
-
-    for (int i=0; i<mazeHeight; i++)
-        delete[] mazeArray[i];
-    delete mazeArray;
-
-    mazeArray = NULL;
-}
-
-void MainWindow::setMazeProperties(int mazeHeight, int mazeWidth, int mazeDifficulty)
-{
-    this->mazeHeight = mazeHeight;
-    this->mazeWidth = mazeWidth;
-    this->mazeDifficulty = mazeDifficulty;
-}
-
-void MainWindow::generateMazeArray()
-{
-    mazeGen = new Generating(mazeArray, mazeHeight, mazeWidth, mazeDifficulty);
-    mazeGen->generateMaze(startingPoint, endingPoint);
-    delete mazeGen;
+    ui->lcd_time->show();
 }
 
 void MainWindow::on_actionEasy_triggered()
 {
-    deleteIntArray();
-
-    setMazeProperties(20, 20, 1);
-
-    newIntArray();
-
-    generateMazeArray();
-
-    update();
+    prepareMaze(20, 20, 1);
 }
 
 void MainWindow::on_actionMedium_triggered()
 {
-    deleteIntArray();
-
-    setMazeProperties(30, 30, 2);
-
-    newIntArray();
-
-    generateMazeArray();
-
-    update();
+    prepareMaze(30, 30, 2);
 }
 
 void MainWindow::on_actionHard_triggered()
 {
-    deleteIntArray();
-
-    setMazeProperties(40, 40, 3);
-
-    newIntArray();
-
-    generateMazeArray();
-
-    update();
+    prepareMaze(40, 40, 3);
 }
 
 void MainWindow::on_actionExpert_triggered()
 {
-    deleteIntArray();
-
-    setMazeProperties(50, 50, 4);
-
-    newIntArray();
-
-    generateMazeArray();
-
-    update();
+    prepareMaze(50, 50, 4);
 }
 
-void MainWindow::on_actionRankingi_triggered()
+void MainWindow::on_actionRankingi_triggered()//
 {
 
 }
 
-void MainWindow::on_actionOpen_triggered()
+void MainWindow::on_actionNew_triggered()//
 {
 
 }
 
-void MainWindow::on_actionSave_triggered()
+void MainWindow::on_actionOpen_triggered()//
 {
-
+    //game->loadMaze(game->mazeName);
 }
 
-void MainWindow::on_actionSaveAs_triggered()
+void MainWindow::on_actionSave_triggered()//
+{
+    //if (game->mazeName != "NULL")
+        //game->saveMaze(game->mazeName);
+
+    //else
+        //on_actionSaveAs_triggered();
+}
+
+void MainWindow::on_actionSaveAs_triggered()//
 {
 
 }
 
 void MainWindow::on_actionCloseMaze_triggered()
 {
-    deleteIntArray();
+    game->deleteMaze();
+    this->setFixedSize(350, 350);
+    showAll();
 
-    update();
-}
-
-void MainWindow::on_actionNew_triggered()
-{
-    deleteIntArray();
-
-    update();
+    timer->stop();
 }
 
 void MainWindow::on_pushButton_play_clicked()
 {
-    deleteIntArray();
-
-    mazeHeight = ui->spinBox_height->value();
-    mazeWidth = ui->spinBox_width->value();
     mazeSize = ui->spinBox_size->value();
 
+    int difficulty;
     if (ui->radioButton_Easy->isChecked())
-        mazeDifficulty = 1;
+        difficulty = 1;
     if (ui->radioButton_Medium->isChecked())
-        mazeDifficulty = 2;
+        difficulty = 2;
     if (ui->radioButton_Hard->isChecked())
-        mazeDifficulty = 3;
+        difficulty = 3;
     if (ui->radioButton_Expert->isChecked())
-        mazeDifficulty = 4;
+        difficulty = 4;
 
-    newIntArray();
+    prepareMaze(ui->spinBox_height->value(), ui->spinBox_width->value(), difficulty);
+}
 
-    generateMazeArray();
-
-    update();
+void MainWindow::prepareMaze(int height, int width, int difficulty)
+{
+    game->createMaze(height, width, difficulty);
+    this->setFixedSize((game->maze.width-1) * mazeSize*2 + marginLeft*2, (game->maze.height-1) * mazeSize*2 + marginTop + marginLeft);
+    hideAll();
+    game->maze.seconds = 0;
+    timer->start(timeInterval);
 }
 
 void MainWindow::on_checkBox_superUser_clicked()

@@ -1,0 +1,27 @@
+#ifndef GAME_H
+#define GAME_H
+
+#include "generating.h"
+
+struct MazeStruct
+{
+    int height, width, start, end, difficulty;
+    int **array;
+};
+
+class Game
+{
+public:
+    Game();
+    ~Game();
+
+private:
+    Generating* mazeGen;
+
+    void setMazeProp(MazeStruct maze, int height, int width);
+    void generateMaze(MazeStruct maze);
+    void newArray(MazeStruct maze);
+    void deleteArray(MazeStruct maze);
+};
+
+#endif // GAME_H

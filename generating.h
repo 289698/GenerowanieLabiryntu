@@ -1,8 +1,6 @@
 #ifndef GENERATING_H
 #define GENERATING_H
 
-#include <iostream>
-#include <windows.h>
 #include <ctime>
 #include <cstdlib>
 
@@ -16,7 +14,7 @@ struct Borders
     bool *W;
 };
 
-struct PointXY
+struct Point
 {
     int row;
     int col;
@@ -38,10 +36,10 @@ private:
 
     int mazeHeight, mazeWidth, minLength, maxLength;
 
-    bool findNextPoint(PointXY &currentPos);
-    void makeStartingPath(PointXY &currentPos, int &counter, bool &a);
-    void makeRandomPath(PointXY &currentPos, char direction);
-    char randomDirection(PointXY currentPos);
+    bool findNextPoint(Point &currentPos);
+    void makeStartingPath(Point &currentPos, int &counter, bool &a);
+    void makeRandomPath(Point &currentPos, char direction);
+    char randomDirection(Point currentPos);
 
     void rewriteArray();
     void createvisitedArray();

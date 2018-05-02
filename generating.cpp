@@ -22,7 +22,7 @@ Generating::~Generating()
 
 int Generating::generateMaze(int &startingRow, int &endingRow)
 {
-    PointXY currentPos;
+    Point currentPos;
     startingRow = rand() % mazeHeight;
     currentPos.row = startingRow;
     currentPos.col = 0;
@@ -45,7 +45,7 @@ int Generating::generateMaze(int &startingRow, int &endingRow)
         makeRandomPath(currentPos, randomDirection(currentPos));
     while (findNextPoint(currentPos));
 
-    *(bordersArray[startingRow][0].W) = 0;
+    //*(bordersArray[startingRow][0].W) = 0;
     *(bordersArray[endingRow][mazeWidth-1].E) = 0;
 
     rewriteArray();
@@ -53,7 +53,7 @@ int Generating::generateMaze(int &startingRow, int &endingRow)
     return endingRow;
 }
 
-void Generating::makeStartingPath(PointXY &currentPos, int &counter, bool &a)
+void Generating::makeStartingPath(Point &currentPos, int &counter, bool &a)
 {
     visitedArray[currentPos.row][currentPos.col] = 1;
     char direction;
@@ -96,7 +96,7 @@ void Generating::makeStartingPath(PointXY &currentPos, int &counter, bool &a)
     return;
 }
 
-void Generating::makeRandomPath(PointXY &currentPos, char direction)
+void Generating::makeRandomPath(Point &currentPos, char direction)
 {
     visitedArray[currentPos.row][currentPos.col] = 1;
 
@@ -128,7 +128,7 @@ void Generating::makeRandomPath(PointXY &currentPos, char direction)
     return;
 }
 
-char Generating::randomDirection(PointXY currentPos)
+char Generating::randomDirection(Point currentPos)
 {
     bool dirN = 0,
          dirE = 0,
@@ -179,7 +179,7 @@ char Generating::randomDirection(PointXY currentPos)
     return direction;
 }
 
-bool Generating::findNextPoint(PointXY &currentPos)
+bool Generating::findNextPoint(Point &currentPos)
 {
     for (int i=0; i<mazeHeight; i++)
     {

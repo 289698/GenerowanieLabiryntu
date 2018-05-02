@@ -1,6 +1,6 @@
 #-------------------------------------------------
 #
-# Project created by QtCreator 2018-04-03T03:25:31
+# Project created by QtCreator 2018-04-29T19:42:27
 #
 #-------------------------------------------------
 
@@ -14,16 +14,17 @@ TEMPLATE = app
 
 SOURCES += main.cpp\
         mainwindow.cpp \
-    filemanaging.cpp \
     generating.cpp \
-    drawing.cpp \
-    customsettingsdialog.cpp
+    mazemanagment.cpp \
+    filedialog.cpp \
+    filemanagment.cpp
 
 HEADERS  += mainwindow.h \
-    filemanaging.h \
     generating.h \
-    drawing.h \
-    customsettingsdialog.h
+    mazemanagment.h \
+    filedialog.h \
+    filemanagment.h \
+    mazestruct.h
 
 FORMS    += mainwindow.ui \
-    customsettingsdialog.ui
+    filedialog.ui

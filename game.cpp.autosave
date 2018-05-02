@@ -1,0 +1,30 @@
+#include "game.h"
+
+Game::Game()
+{
+
+}
+
+Game::~Game()
+{
+
+}
+
+void Game::generateMaze(MazeStruct maze)
+{
+    mazeGen = new Generating(maze.array, maze.height, maze.width, maze);
+    mazeGen->generateMaze(maze.start, maze.end);
+}
+
+void Game::newArray(MazeStruct maze)
+{
+    if (maze.array != NULL)
+        return;
+
+    maze.array = new int *[maze.height];
+    for (int i=0; i<maze.height; i++)
+        maze.array[i] = new int [maze.width];
+}
+
+void 
+
