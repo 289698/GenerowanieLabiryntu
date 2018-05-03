@@ -4,19 +4,31 @@
 #include <QDir>
 #include <QFile>
 #include <QTextStream>
-#include "mazestruct.h"
+#include "filedialog.h"
+#include "maze.h"
 
-class FileManagment
+class FileManagment : public Maze
 {
+    Q_OBJECT
 public:
     FileManagment();
     ~FileManagment();
 
+    void load();
+    void save();
+    void saveAs();
+
+signals:
+
+private slots:
+    void saveSlot(QString fileName);
+    void loadSlot(QString fileName);
+
 private:
+    FileDialog *dialog;
     QDir *dir;
 
-    void loadMaze(QString fileName, MazeStruct maze);
-    void saveMaze(QString fileName, MazeStruct maze);
+    void fillFilesList();
 };
 
 #endif // FILEMANAGMENT_H

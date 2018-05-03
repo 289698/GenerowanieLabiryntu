@@ -21,29 +21,16 @@ public:
 
 private slots:
     void on_actionEasy_triggered();
-
     void on_actionMedium_triggered();
-
     void on_actionHard_triggered();
-
     void on_actionExpert_triggered();
-
     void on_actionRankingi_triggered();
-
     void on_actionNew_triggered();
-
     void on_actionOpen_triggered();
-
     void on_actionSave_triggered();
-
     void on_actionSaveAs_triggered();
-
-    void on_actionCloseMaze_triggered();
-
     void on_pushButton_play_clicked();
-
     void on_checkBox_superUser_clicked();
-
     void measureTime();
 
 private:

@@ -25,40 +25,40 @@ MainWindow::~MainWindow()
 
 void MainWindow::measureTime()
 {
-    game->maze.seconds += timeInterval/1000.0;
-    ui->lcd_time->display(game->maze.seconds);
+    game->maze->seconds += timeInterval/1000.0;
+    ui->lcd_time->display(game->maze->seconds);
 }
 
 void MainWindow::keyPressEvent(QKeyEvent *event)
 {
-    if (game->maze.array == NULL)
+    if (game->maze->array == NULL)
         return;
 
     switch (event->key())
     {
     case Qt::Key_W:
         if(isMovePossible(1))
-            game->maze.currentPos.ry()--;
+            game->maze->currentPos.ry()--;
         break;
     case Qt::Key_A:
         if(isMovePossible(8))
-            game->maze.currentPos.rx()--;
+            game->maze->currentPos.rx()--;
         break;
     case Qt::Key_S:
         if(isMovePossible(4))
-            game->maze.currentPos.ry()++;
+            game->maze->currentPos.ry()++;
         break;
     case Qt::Key_D:
         if(isMovePossible(2))
-            game->maze.currentPos.rx()++;
+            game->maze->currentPos.rx()++;
         break;
     case Qt::Key_P:
-        game->maze.currentPos.setX(game->maze.width-1);
-        game->maze.currentPos.setY(game->maze.end);
+        game->maze->currentPos.setX(game->maze->width-1);
+        game->maze->currentPos.setY(game->maze->end);
         break;
     }
 
-    if (game->maze.currentPos.x() == game->maze.width)
+    if (game->maze->currentPos.x() == game->maze->width)
         finish();
 
 //    QString text = "X:" + QString::number(game->currentPos.x()) + " Y:" + QString::number(game->currentPos.y()) + "   Usuń mnie";
@@ -69,7 +69,7 @@ void MainWindow::keyPressEvent(QKeyEvent *event)
 
 bool MainWindow::isMovePossible(int direction)
 {
-    return !(game->maze.array[game->maze.currentPos.y()][game->maze.currentPos.x()] & direction);
+    return !(game->maze->array[game->maze->currentPos.y()][game->maze->currentPos.x()] & direction);
 }
 
 void MainWindow::finish()
@@ -81,16 +81,16 @@ void MainWindow::finish()
 
 void MainWindow::paintEvent(QPaintEvent *)
 {
-    if (game->maze.array == NULL)
+    if (game->maze->array == NULL)
         return;
 
     QPainter painter(this);
-    for (int i=0; i<game->maze.height; i++)
-        for (int j=0; j<game->maze.width; j++)
-            drawSquare(&painter, grid(j, i), game->maze.array[i][j]);
+    for (int i=0; i<game->maze->height; i++)
+        for (int j=0; j<game->maze->width; j++)
+            drawSquare(&painter, grid(j, i), game->maze->array[i][j]);
 
     painter.setBrush(Qt::black);
-    painter.drawEllipse(grid(game->maze.currentPos), mazeSize/2, mazeSize/2);
+    painter.drawEllipse(grid(game->maze->currentPos), mazeSize/2, mazeSize/2);
 }
 
 void MainWindow::drawSquare(QPainter *painter, QPoint point, int borders)
@@ -165,37 +165,35 @@ void MainWindow::on_actionRankingi_triggered()//
 
 }
 
-void MainWindow::on_actionNew_triggered()//
-{
-
-}
-
-void MainWindow::on_actionOpen_triggered()//
-{
-    //game->loadMaze(game->mazeName);
-}
-
-void MainWindow::on_actionSave_triggered()//
-{
-    //if (game->mazeName != "NULL")
-        //game->saveMaze(game->mazeName);
-
-    //else
-        //on_actionSaveAs_triggered();
-}
-
-void MainWindow::on_actionSaveAs_triggered()//
-{
-
-}
-
-void MainWindow::on_actionCloseMaze_triggered()
+void MainWindow::on_actionNew_triggered()
 {
     game->deleteMaze();
     this->setFixedSize(350, 350);
     showAll();
-
     timer->stop();
+}
+
+void MainWindow::on_actionOpen_triggered()
+{
+    game->load();
+    if (game->maze->array != NULL)
+    {
+        hideAll();
+        this->setFixedSize((game->maze->width-1) * mazeSize*2 + marginLeft*2, (game->maze->height-1) * mazeSize*2 + marginTop + marginLeft);
+        timer->start(timeInterval);
+    }
+}
+
+void MainWindow::on_actionSave_triggered()
+{
+    if (game->maze->array != NULL)
+        game->save();
+}
+
+void MainWindow::on_actionSaveAs_triggered()
+{
+    if (game->maze->array != NULL)
+        game->saveAs();
 }
 
 void MainWindow::on_pushButton_play_clicked()
@@ -217,10 +215,10 @@ void MainWindow::on_pushButton_play_clicked()
 
 void MainWindow::prepareMaze(int height, int width, int difficulty)
 {
-    game->createMaze(height, width, difficulty);
-    this->setFixedSize((game->maze.width-1) * mazeSize*2 + marginLeft*2, (game->maze.height-1) * mazeSize*2 + marginTop + marginLeft);
+    game->create(height, width, difficulty);
     hideAll();
-    game->maze.seconds = 0;
+    this->setFixedSize((game->maze->width-1) * mazeSize*2 + marginLeft*2, (game->maze->height-1) * mazeSize*2 + marginTop + marginLeft);
+    game->maze->seconds = 0;
     timer->start(timeInterval);
 }
 

@@ -17,14 +17,15 @@ SOURCES += main.cpp\
     generating.cpp \
     mazemanagment.cpp \
     filedialog.cpp \
+    maze.cpp \
     filemanagment.cpp
 
 HEADERS  += mainwindow.h \
     generating.h \
     mazemanagment.h \
     filedialog.h \
-    filemanagment.h \
-    mazestruct.h
+    maze.h \
+    filemanagment.h
 
 FORMS    += mainwindow.ui \
     filedialog.ui

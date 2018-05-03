@@ -2,57 +2,94 @@
 
 MazeManagment::MazeManagment()
 {
-    maze.array = NULL;
-    maze.mazeName = "4444";
+    maze = new MazeStruct;
+    reset();
 }
 
 MazeManagment::~MazeManagment()
 {
     deleteMaze();
+    delete maze;
 }
 
-void MazeManagment::createMaze(int height, int width, int difficulty)
+void MazeManagment::load()
+{
+    file = new FileManagment;
+    file->maze = maze;
+    file->load();
+    delete file;
+}
+
+void MazeManagment::save()
+{
+    file = new FileManagment;
+    file->maze = maze;
+    if (maze->name.isEmpty())
+        file->saveAs();
+    else
+        file->save();
+    delete file;
+}
+
+void MazeManagment::saveAs()
+{
+    file = new FileManagment;
+    file->maze = maze;
+    file->saveAs();
+    delete file;
+}
+
+void MazeManagment::create(int height, int width, int difficulty)
 {
     deleteMaze();
-    maze.height = height;
-    maze.width = width;
-    maze.difficulty = difficulty;
+    maze->height = height;
+    maze->width = width;
+    maze->difficulty = difficulty;
     newMaze();
-    generateMaze();
+    generate();
 }
 
-void MazeManagment::generateMaze()
+void MazeManagment::generate()
 {
-    mazeGen = new Generating(maze.array, maze.height, maze.width, maze.difficulty);
-    mazeGen->generateMaze(maze.start, maze.end);
+    mazeGen = new Generating(maze->array, maze->height, maze->width, maze->difficulty);
+    mazeGen->generateMaze(maze->start, maze->end);
     delete mazeGen;
-    maze.currentPos.setX(0);
-    maze.currentPos.setY(maze.start);
+    maze->currentPos.setX(0);
+    maze->currentPos.setY(maze->start);
 }
 
 void MazeManagment::newMaze()
 {
-    if (maze.array != NULL)
+    if (maze->array != NULL)
         return;
 
-    maze.array = new int *[maze.height];
-    for (int i=0; i<maze.height; i++)
-        maze.array[i] = new int [maze.width];
+    maze->array = new int *[maze->height];
+    for (int i=0; i<maze->height; i++)
+        maze->array[i] = new int [maze->width];
 }
 
 void MazeManagment::deleteMaze()
 {
-    if (maze.array == NULL)
+    if (maze->array == NULL)
         return;
 
-    for (int i=0; i<maze.height; i++)
-        delete[] maze.array[i];
-    delete maze.array;
+    for (int i=0; i<maze->height; i++)
+        delete[] maze->array[i];
+    delete maze->array;
 
-    maze.height = 0;
-    maze.width = 0;
-    maze.start = 0;
-    maze.end = 0;
-    maze.difficulty = 0;
-    maze.array = NULL;
+    reset();
+}
+
+void MazeManagment::reset()
+{
+    maze->height = 0;
+    maze->width = 0;
+    maze->start = 0;
+    maze->end = 0;
+    maze->difficulty = 0;
+    maze->array = NULL;
+    maze->currentPos.setX(0);
+    maze->currentPos.setY(0);
+    maze->seconds = 0;
+    maze->name = QString::null;
 }
