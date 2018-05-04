@@ -19,16 +19,19 @@ public:
     void saveAs();
 
 signals:
+    void loadSignal(int, int);
 
 private slots:
-    void saveSlot(QString fileName);
-    void loadSlot(QString fileName);
+    void save(QString fileName);
+    void load(QString fileName);
+    void deleteFile(QString fileName);
 
 private:
     FileDialog *dialog;
     QDir *dir;
 
     void fillFilesList();
+//    bool isFine(QString fileName);
 };
 
 #endif // FILEMANAGMENT_H

@@ -15,9 +15,18 @@ MazeManagment::~MazeManagment()
 void MazeManagment::load()
 {
     file = new FileManagment;
-    file->maze = maze;
+    connect (file, SIGNAL(loadSignal(int, int)), this, SLOT(loadSlot(int, int)));
     file->load();
     delete file;
+}
+
+void MazeManagment::loadSlot(int height, int width)
+{
+    deleteMaze();
+    maze->height = height;
+    maze->width = width;
+    newMaze();
+    file->maze = maze;
 }
 
 void MazeManagment::save()

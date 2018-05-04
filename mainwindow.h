@@ -6,6 +6,8 @@
 #include <QPainter>
 #include <QKeyEvent>
 #include "mazemanagment.h"
+#include "settingsdialog.h"
+#include "windialog.h"
 
 namespace Ui {
 class MainWindow;
@@ -14,7 +16,6 @@ class MainWindow;
 class MainWindow : public QMainWindow
 {
     Q_OBJECT
-
 public:
     explicit MainWindow(QWidget *parent = 0);
     ~MainWindow();
@@ -30,12 +31,16 @@ private slots:
     void on_actionSave_triggered();
     void on_actionSaveAs_triggered();
     void on_pushButton_play_clicked();
+    void on_pb_Cancel_clicked();
     void on_checkBox_superUser_clicked();
     void measureTime();
+    void saveAfterFinish(QString fileName);
 
 private:
     Ui::MainWindow *ui;
     MazeManagment *game;
+    WinDialog *win;
+    SettingsDialog *setting;
     QTimer *timer = NULL;
 
     const int marginTop = 65, marginLeft = 20, timeInterval = 100;

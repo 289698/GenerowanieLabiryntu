@@ -18,14 +18,20 @@ SOURCES += main.cpp\
     mazemanagment.cpp \
     filedialog.cpp \
     maze.cpp \
-    filemanagment.cpp
+    filemanagment.cpp \
+    windialog.cpp \
+    settingsdialog.cpp
 
 HEADERS  += mainwindow.h \
     generating.h \
     mazemanagment.h \
     filedialog.h \
     maze.h \
-    filemanagment.h
+    filemanagment.h \
+    windialog.h \
+    settingsdialog.h
 
 FORMS    += mainwindow.ui \
-    filedialog.ui
+    filedialog.ui \
+    windialog.ui \
+    settingsdialog.ui

@@ -15,8 +15,70 @@
   </property>
   <widget class="QWidget" name="centralWidget">
    <layout class="QVBoxLayout" name="verticalLayout_6">
-    <item alignment="Qt::AlignTop">
-     <widget class="QLCDNumber" name="lcd_time"/>
+    <item>
+     <layout class="QHBoxLayout" name="horizontalLayout_4">
+      <item alignment="Qt::AlignTop">
+       <widget class="QLabel" name="label_textName">
+        <property name="text">
+         <string>Nazwa:</string>
+        </property>
+       </widget>
+      </item>
+      <item alignment="Qt::AlignTop">
+       <widget class="QLabel" name="label_name">
+        <property name="text">
+         <string>TextLabel</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <spacer name="horizontalSpacer_3">
+        <property name="orientation">
+         <enum>Qt::Horizontal</enum>
+        </property>
+        <property name="sizeHint" stdset="0">
+         <size>
+          <width>40</width>
+          <height>20</height>
+         </size>
+        </property>
+       </spacer>
+      </item>
+      <item alignment="Qt::AlignTop">
+       <widget class="QLabel" name="label_header">
+        <property name="text">
+         <string>TEMP</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <spacer name="horizontalSpacer_2">
+        <property name="orientation">
+         <enum>Qt::Horizontal</enum>
+        </property>
+        <property name="sizeHint" stdset="0">
+         <size>
+          <width>40</width>
+          <height>20</height>
+         </size>
+        </property>
+       </spacer>
+      </item>
+      <item>
+       <layout class="QHBoxLayout" name="horizontalLayout_3">
+        <item alignment="Qt::AlignTop">
+         <widget class="QLabel" name="label_seconds">
+          <property name="text">
+           <string>Czas:</string>
+          </property>
+         </widget>
+        </item>
+        <item alignment="Qt::AlignTop">
+         <widget class="QLCDNumber" name="lcd_time"/>
+        </item>
+       </layout>
+      </item>
+     </layout>
     </item>
     <item>
      <layout class="QGridLayout" name="gridLayout">
@@ -188,11 +250,35 @@
      </layout>
     </item>
     <item>
-     <widget class="QPushButton" name="pushButton_play">
-      <property name="text">
-       <string>! GRAMY !</string>
-      </property>
-     </widget>
+     <layout class="QHBoxLayout" name="horizontalLayout_2">
+      <item>
+       <spacer name="horizontalSpacer">
+        <property name="orientation">
+         <enum>Qt::Horizontal</enum>
+        </property>
+        <property name="sizeHint" stdset="0">
+         <size>
+          <width>40</width>
+          <height>20</height>
+         </size>
+        </property>
+       </spacer>
+      </item>
+      <item>
+       <widget class="QPushButton" name="pushButton_play">
+        <property name="text">
+         <string>! GRAMY !</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QPushButton" name="pb_Cancel">
+        <property name="text">
+         <string>Zamnkij</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
     </item>
    </layout>
   </widget>
@@ -257,6 +343,9 @@
    <property name="toolTip">
     <string>Otwórz z pliku...</string>
    </property>
+   <property name="shortcut">
+    <string>Ctrl+E</string>
+   </property>
   </action>
   <action name="actionSave">
    <property name="text">
@@ -265,6 +354,9 @@
    <property name="toolTip">
     <string>Zapisz</string>
    </property>
+   <property name="shortcut">
+    <string>Ctrl+S</string>
+   </property>
   </action>
   <action name="actionSaveAs">
    <property name="text">
@@ -272,6 +364,9 @@
    </property>
    <property name="toolTip">
     <string>Zapisz jako...</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+Shift+S</string>
    </property>
   </action>
   <action name="actionExit">
@@ -286,32 +381,20 @@
    <property name="text">
     <string>Łatwy</string>
    </property>
-   <property name="shortcut">
-    <string>Alt+A</string>
-   </property>
   </action>
   <action name="actionMedium">
    <property name="text">
     <string>Średni</string>
-   </property>
-   <property name="shortcut">
-    <string>Alt+S</string>
    </property>
   </action>
   <action name="actionHard">
    <property name="text">
     <string>Trudny</string>
    </property>
-   <property name="shortcut">
-    <string>Alt+D</string>
-   </property>
   </action>
   <action name="actionExpert">
    <property name="text">
     <string>Ekspert (~15s)</string>
-   </property>
-   <property name="shortcut">
-    <string>Alt+F</string>
    </property>
   </action>
   <action name="actionRankingi">
@@ -320,6 +403,9 @@
    </property>
    <property name="text">
     <string>Rankingi@</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+R</string>
    </property>
   </action>
   <action name="actionNew">

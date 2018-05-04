@@ -7,6 +7,11 @@ MainWindow::MainWindow(QWidget *parent) :
 {
     ui->setupUi(this);
     ui->mainToolBar->hide();
+
+    ui->label_textName->hide();
+    ui->label_name->hide();
+    ui->label_header->hide();
+    ui->label_seconds->hide();
     ui->lcd_time->hide();
     ui->lcd_time->setFixedHeight(20);
     this->setFixedSize(350, 350);
@@ -25,8 +30,8 @@ MainWindow::~MainWindow()
 
 void MainWindow::measureTime()
 {
-    game->maze->seconds += timeInterval/1000.0;
-    ui->lcd_time->display(game->maze->seconds);
+    game->maze->seconds += timeInterval;
+    ui->lcd_time->display(game->maze->seconds/1000.0);
 }
 
 void MainWindow::keyPressEvent(QKeyEvent *event)
@@ -61,8 +66,8 @@ void MainWindow::keyPressEvent(QKeyEvent *event)
     if (game->maze->currentPos.x() == game->maze->width)
         finish();
 
-//    QString text = "X:" + QString::number(game->currentPos.x()) + " Y:" + QString::number(game->currentPos.y()) + "   Usuń mnie";
-//    ui->statusBar->showMessage(text);
+    QString text = "X:" + QString::number(game->maze->currentPos.x()) + " Y:" + QString::number(game->maze->currentPos.y()) + "   Usuń mnie";
+    ui->statusBar->showMessage(text);
 
     update();
 }
@@ -74,9 +79,28 @@ bool MainWindow::isMovePossible(int direction)
 
 void MainWindow::finish()
 {
-    //zrob cos fajnego
-    //game->deleteMaze();
     timer->stop();
+
+    win = new WinDialog;
+    win->fillLineEdits(game->maze);
+    win->setModal(false);
+    connect(win, SIGNAL(fileNameSignal(QString)), this, SLOT(saveAfterFinish(QString)));
+    win->exec();
+
+    delete win;
+
+    game->deleteMaze();
+    this->setFixedSize(350, 350);
+    showAll();
+}
+
+void MainWindow::saveAfterFinish(QString fileName)
+{
+    game->maze->name = fileName;
+    game->maze->currentPos.rx() = 0;
+    game->maze->currentPos.ry() = game->maze->start;
+    game->maze->seconds = 0;
+    game->save();
 }
 
 void MainWindow::paintEvent(QPaintEvent *)
@@ -127,6 +151,11 @@ void MainWindow::showAll()
     ui->groupBox_options->show();
     ui->groupBox_text->show();
     ui->pushButton_play->show();
+    ui->pb_Cancel->show();
+    ui->label_textName->hide();
+    ui->label_name->hide();
+    ui->label_header->hide();
+    ui->label_seconds->hide();
     ui->lcd_time->hide();
 }
 
@@ -137,6 +166,11 @@ void MainWindow::hideAll()
     ui->groupBox_options->hide();
     ui->groupBox_text->hide();
     ui->pushButton_play->hide();
+    ui->pb_Cancel->hide();
+    ui->label_textName->show();
+    ui->label_name->show();
+    ui->label_header->show();
+    ui->label_seconds->show();
     ui->lcd_time->show();
 }
 
@@ -211,6 +245,11 @@ void MainWindow::on_pushButton_play_clicked()
         difficulty = 4;
 
     prepareMaze(ui->spinBox_height->value(), ui->spinBox_width->value(), difficulty);
+}
+
+void MainWindow::on_pb_Cancel_clicked()
+{
+    this->close();
 }
 
 void MainWindow::prepareMaze(int height, int width, int difficulty)

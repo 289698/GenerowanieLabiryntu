@@ -18,6 +18,9 @@ public:
     void saveAs();
     void deleteMaze();
 
+private slots:
+    void loadSlot(int height, int width);
+
 private:
     Generating* mazeGen;
     FileManagment* file;
