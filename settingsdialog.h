@@ -15,6 +15,14 @@ public:
     explicit SettingsDialog(QWidget *parent = 0);
     ~SettingsDialog();
 
+signals:
+    void mazeInfo(int, int, int);
+
+private slots:
+    void on_pushButton_play_clicked();
+
+    void on_pushButton_close_clicked();
+
 private:
     Ui::SettingsDialog *ui;
 };

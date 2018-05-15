@@ -16,7 +16,9 @@ public:
     void load();
     void save();
     void saveAs();
+    void openLeader();
     void deleteMaze();
+    void finish();
 
 private slots:
     void loadSlot(int height, int width);

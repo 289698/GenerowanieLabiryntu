@@ -13,6 +13,9 @@
   <property name="windowTitle">
    <string>Dialog</string>
   </property>
+  <property name="sizeGripEnabled">
+   <bool>false</bool>
+  </property>
   <layout class="QVBoxLayout" name="verticalLayout">
    <item>
     <widget class="QLabel" name="label">
@@ -35,7 +38,7 @@
      </column>
      <column>
       <property name="text">
-       <string>Trudność</string>
+       <string>St. trudności</string>
       </property>
      </column>
      <column>
@@ -71,16 +74,9 @@
       </spacer>
      </item>
      <item>
-      <widget class="QPushButton" name="pb_Open">
+      <widget class="QPushButton" name="pb_Accept">
        <property name="text">
-        <string>Otwórz</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QPushButton" name="pb_Save">
-       <property name="text">
-        <string>Zapisz</string>
+        <string>text</string>
        </property>
       </widget>
      </item>

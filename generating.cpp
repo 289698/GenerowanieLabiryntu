@@ -155,16 +155,16 @@ char Generating::randomDirection(Point currentPos)
     directionsArray = new char[numberOfDirections];
 
     if (dirN) {
-        directionsArray[i] = 'N'; i++;
+        directionsArray[i] = 'N'; ++i;
     }
     if (dirE) {
-        directionsArray[i] = 'E'; i++;
+        directionsArray[i] = 'E'; ++i;
     }
     if (dirS) {
-        directionsArray[i] = 'S'; i++;
+        directionsArray[i] = 'S'; ++i;
     }
     if (dirW) {
-        directionsArray[i] = 'W'; i++;
+        directionsArray[i] = 'W'; ++i;
     }
 
     if (numberOfDirections == 0)
@@ -181,7 +181,7 @@ char Generating::randomDirection(Point currentPos)
 
 bool Generating::findNextPoint(Point &currentPos)
 {
-    for (int i=0; i<mazeHeight; i++)
+    for (int i=0; i<mazeHeight; ++i)
     {
         for (int j=0; j<mazeWidth; j++) if (!visitedArray[i][j])
         {
@@ -228,14 +228,14 @@ void Generating::tempDiff(int difficulty)
 
 void Generating::resetvisitedArray()
 {
-    for (int i=0; i<mazeHeight; i++)
+    for (int i=0; i<mazeHeight; ++i)
         for (int j=0; j<mazeWidth; j++)
             visitedArray[i][j] = 0;
 }
 
 void Generating::rewriteArray()
 {
-    for (int i=0; i<mazeHeight; i++)
+    for (int i=0; i<mazeHeight; ++i)
     {
         for (int j=0; j<mazeWidth; j++)
         {
@@ -252,31 +252,31 @@ void Generating::reserveBordersMemory()
 {
     bordersArray = new Borders *[mazeHeight];
 
-    for (int i=0; i<mazeHeight; i++)
+    for (int i=0; i<mazeHeight; ++i)
         bordersArray[i] = new Borders [mazeWidth];
 
-    for (int i=0; i<mazeHeight; i++)
+    for (int i=0; i<mazeHeight; ++i)
         for (int j=0; j<mazeWidth; j++)
         {
             bordersArray[i][j].E = new bool;
             bordersArray[i][j].S = new bool;
         }
 
-    for (int i=0; i<mazeHeight; i++)
+    for (int i=0; i<mazeHeight; ++i)
         bordersArray[i][0].W = new bool;
 
     for (int j=0; j<mazeWidth; j++)
         bordersArray[0][j].N = new bool;
 
 
-    for (int i=1; i<mazeHeight; i++)
+    for (int i=1; i<mazeHeight; ++i)
         for(int j=1; j<mazeWidth; j++)
         {
             bordersArray[i][j].N = bordersArray[i-1][j].S;
             bordersArray[i][j].W = bordersArray[i][j-1].E;
         }
 
-    for (int i=1; i<mazeHeight; i++)
+    for (int i=1; i<mazeHeight; ++i)
         bordersArray[i][0].N = bordersArray[i-1][0].S;
 
     for (int j=1; j<mazeWidth; j++)
@@ -285,7 +285,7 @@ void Generating::reserveBordersMemory()
 
 void Generating::resetbordersArray()
 {
-    for (int i=0; i<mazeHeight; i++)
+    for (int i=0; i<mazeHeight; ++i)
         for (int j=0; j<mazeWidth; j++)
         {
             *(bordersArray[i][j].N) = 1;
@@ -297,20 +297,20 @@ void Generating::resetbordersArray()
 
 void Generating::clearBordersMemory()
 {
-    for (int i=0; i<mazeHeight; i++)
+    for (int i=0; i<mazeHeight; ++i)
         for (int j=0; j<mazeWidth; j++)
         {
             delete bordersArray[i][j].E;
             delete bordersArray[i][j].S;
         }
 
-    for (int i=0; i<mazeHeight; i++)
+    for (int i=0; i<mazeHeight; ++i)
         delete bordersArray[i][0].W;
 
     for (int j=0; j<mazeWidth; j++)
         delete bordersArray[0][j].N;
 
-    for (int i=0; i<mazeHeight; i++)
+    for (int i=0; i<mazeHeight; ++i)
         delete[] bordersArray[i];
     delete[] bordersArray;
 }
@@ -318,13 +318,13 @@ void Generating::clearBordersMemory()
 void Generating::reserveBoolMemory(bool **&adress, int w, int k)
 {
     adress = new bool *[w];
-    for (int i=0; i<w; i++)
+    for (int i=0; i<w; ++i)
         adress[i] = new bool [k];
 }
 
 void Generating::clearBoolMemory(bool **&adress, int w)
 {
-    for (int i=0; i<w; i++)
+    for (int i=0; i<w; ++i)
         delete[] adress[i];
     delete adress;
 }

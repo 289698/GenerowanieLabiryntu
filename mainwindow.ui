@@ -6,251 +6,52 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>360</width>
-    <height>411</height>
+    <width>220</width>
+    <height>344</height>
    </rect>
   </property>
   <property name="windowTitle">
-   <string>MainWindow</string>
+   <string>Generowanie labiryntu</string>
   </property>
   <widget class="QWidget" name="centralWidget">
-   <layout class="QVBoxLayout" name="verticalLayout_6">
+   <layout class="QVBoxLayout" name="verticalLayout_2">
     <item>
-     <layout class="QHBoxLayout" name="horizontalLayout_4">
-      <item alignment="Qt::AlignTop">
-       <widget class="QLabel" name="label_textName">
-        <property name="text">
-         <string>Nazwa:</string>
-        </property>
-       </widget>
-      </item>
-      <item alignment="Qt::AlignTop">
+     <layout class="QHBoxLayout" name="horizontalLayout">
+      <item>
        <widget class="QLabel" name="label_name">
         <property name="text">
-         <string>TextLabel</string>
+         <string>name</string>
         </property>
        </widget>
       </item>
       <item>
-       <spacer name="horizontalSpacer_3">
+       <widget class="Line" name="line">
         <property name="orientation">
-         <enum>Qt::Horizontal</enum>
+         <enum>Qt::Vertical</enum>
         </property>
-        <property name="sizeHint" stdset="0">
-         <size>
-          <width>40</width>
-          <height>20</height>
-         </size>
-        </property>
-       </spacer>
+       </widget>
       </item>
-      <item alignment="Qt::AlignTop">
-       <widget class="QLabel" name="label_header">
+      <item>
+       <widget class="QLabel" name="label_size">
         <property name="text">
-         <string>TEMP</string>
+         <string>size</string>
         </property>
        </widget>
       </item>
       <item>
-       <spacer name="horizontalSpacer_2">
+       <widget class="Line" name="line_2">
         <property name="orientation">
-         <enum>Qt::Horizontal</enum>
+         <enum>Qt::Vertical</enum>
         </property>
-        <property name="sizeHint" stdset="0">
-         <size>
-          <width>40</width>
-          <height>20</height>
-         </size>
-        </property>
-       </spacer>
+       </widget>
       </item>
       <item>
-       <layout class="QHBoxLayout" name="horizontalLayout_3">
-        <item alignment="Qt::AlignTop">
-         <widget class="QLabel" name="label_seconds">
-          <property name="text">
-           <string>Czas:</string>
-          </property>
-         </widget>
-        </item>
-        <item alignment="Qt::AlignTop">
-         <widget class="QLCDNumber" name="lcd_time"/>
-        </item>
-       </layout>
-      </item>
-     </layout>
-    </item>
-    <item>
-     <layout class="QGridLayout" name="gridLayout">
-      <item row="0" column="0">
-       <widget class="QGroupBox" name="groupBox_main">
-        <property name="title">
-         <string>Głowne opcje:</string>
+       <widget class="QLabel" name="label_difficulty">
+        <property name="text">
+         <string>difficulty</string>
         </property>
-        <layout class="QHBoxLayout" name="horizontalLayout">
-         <item>
-          <layout class="QVBoxLayout" name="verticalLayout_4">
-           <item>
-            <widget class="QLabel" name="label_height">
-             <property name="text">
-              <string>Wysokość labiryntu:</string>
-             </property>
-            </widget>
-           </item>
-           <item>
-            <widget class="QLabel" name="label_width">
-             <property name="text">
-              <string>Szerokość labiryntu:</string>
-             </property>
-            </widget>
-           </item>
-           <item>
-            <widget class="QLabel" name="label_size">
-             <property name="text">
-              <string>Rozmiar labiryntu:</string>
-             </property>
-            </widget>
-           </item>
-          </layout>
-         </item>
-         <item>
-          <layout class="QVBoxLayout" name="verticalLayout_3">
-           <item>
-            <widget class="QSpinBox" name="spinBox_height">
-             <property name="minimum">
-              <number>20</number>
-             </property>
-             <property name="maximum">
-              <number>100</number>
-             </property>
-             <property name="singleStep">
-              <number>5</number>
-             </property>
-            </widget>
-           </item>
-           <item>
-            <widget class="QSpinBox" name="spinBox_width">
-             <property name="minimum">
-              <number>20</number>
-             </property>
-             <property name="maximum">
-              <number>100</number>
-             </property>
-             <property name="singleStep">
-              <number>5</number>
-             </property>
-            </widget>
-           </item>
-           <item>
-            <widget class="QSpinBox" name="spinBox_size">
-             <property name="minimum">
-              <number>3</number>
-             </property>
-             <property name="maximum">
-              <number>20</number>
-             </property>
-             <property name="singleStep">
-              <number>1</number>
-             </property>
-             <property name="value">
-              <number>7</number>
-             </property>
-            </widget>
-           </item>
-          </layout>
-         </item>
-        </layout>
        </widget>
       </item>
-      <item row="0" column="1">
-       <widget class="QGroupBox" name="groupBox_difficulty">
-        <property name="title">
-         <string>Trudność labiryntu:</string>
-        </property>
-        <layout class="QVBoxLayout" name="verticalLayout">
-         <item>
-          <widget class="QRadioButton" name="radioButton_Easy">
-           <property name="text">
-            <string>Łatwa</string>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QRadioButton" name="radioButton_Medium">
-           <property name="text">
-            <string>Średnia</string>
-           </property>
-           <property name="checked">
-            <bool>true</bool>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QRadioButton" name="radioButton_Hard">
-           <property name="text">
-            <string>Trudna</string>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QRadioButton" name="radioButton_Expert">
-           <property name="text">
-            <string>Ekspert</string>
-           </property>
-          </widget>
-         </item>
-        </layout>
-       </widget>
-      </item>
-      <item row="1" column="0">
-       <widget class="QGroupBox" name="groupBox_options">
-        <property name="title">
-         <string>Dodatkowe opcje:</string>
-        </property>
-        <layout class="QVBoxLayout" name="verticalLayout_2">
-         <item>
-          <widget class="QCheckBox" name="checkBox_colour">
-           <property name="text">
-            <string>Kolorowy labirynt@</string>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QCheckBox" name="checkBox_reducedView">
-           <property name="text">
-            <string>Ograniczony widok@</string>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QCheckBox" name="checkBox_time">
-           <property name="text">
-            <string>Gra na czas@</string>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QCheckBox" name="checkBox_superUser">
-           <property name="text">
-            <string>Wiem co robię !</string>
-           </property>
-          </widget>
-         </item>
-        </layout>
-       </widget>
-      </item>
-      <item row="1" column="1">
-       <widget class="QGroupBox" name="groupBox_text">
-        <property name="title">
-         <string>Dodatkowe informacje@:</string>
-        </property>
-        <layout class="QVBoxLayout" name="verticalLayout_5"/>
-       </widget>
-      </item>
-     </layout>
-    </item>
-    <item>
-     <layout class="QHBoxLayout" name="horizontalLayout_2">
       <item>
        <spacer name="horizontalSpacer">
         <property name="orientation">
@@ -265,20 +66,135 @@
        </spacer>
       </item>
       <item>
-       <widget class="QPushButton" name="pushButton_play">
-        <property name="text">
-         <string>! GRAMY !</string>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <widget class="QPushButton" name="pb_Cancel">
-        <property name="text">
-         <string>Zamnkij</string>
-        </property>
-       </widget>
+       <widget class="QLCDNumber" name="lcd_time"/>
       </item>
      </layout>
+    </item>
+    <item>
+     <spacer name="verticalSpacer">
+      <property name="orientation">
+       <enum>Qt::Vertical</enum>
+      </property>
+      <property name="sizeHint" stdset="0">
+       <size>
+        <width>20</width>
+        <height>40</height>
+       </size>
+      </property>
+     </spacer>
+    </item>
+    <item>
+     <widget class="QFrame" name="frame">
+      <property name="frameShape">
+       <enum>QFrame::StyledPanel</enum>
+      </property>
+      <property name="frameShadow">
+       <enum>QFrame::Raised</enum>
+      </property>
+      <layout class="QVBoxLayout" name="verticalLayout">
+       <item>
+        <widget class="QPushButton" name="pushButton_new">
+         <property name="text">
+          <string>Nowa gra</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="Line" name="line_5">
+         <property name="orientation">
+          <enum>Qt::Horizontal</enum>
+         </property>
+        </widget>
+       </item>
+       <item alignment="Qt::AlignHCenter">
+        <widget class="QLabel" name="label">
+         <property name="text">
+          <string>SZYBKA GRA:</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <layout class="QGridLayout" name="gridLayout">
+         <item row="0" column="0">
+          <widget class="QPushButton" name="pushButton_easy">
+           <property name="text">
+            <string>Łatwa</string>
+           </property>
+          </widget>
+         </item>
+         <item row="0" column="1">
+          <widget class="QPushButton" name="pushButton_medium">
+           <property name="text">
+            <string>Średnia</string>
+           </property>
+          </widget>
+         </item>
+         <item row="1" column="0">
+          <widget class="QPushButton" name="pushButton_hard">
+           <property name="text">
+            <string>Trudna</string>
+           </property>
+          </widget>
+         </item>
+         <item row="1" column="1">
+          <widget class="QPushButton" name="pushButton_expert">
+           <property name="text">
+            <string>Ekspert</string>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </item>
+       <item>
+        <widget class="QPushButton" name="pushButton_leader">
+         <property name="text">
+          <string>Najlepsze czasy...</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="Line" name="line_4">
+         <property name="orientation">
+          <enum>Qt::Horizontal</enum>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QPushButton" name="pushButton_load">
+         <property name="text">
+          <string>Wczytaj</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="Line" name="line_3">
+         <property name="orientation">
+          <enum>Qt::Horizontal</enum>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QPushButton" name="pushButton_exit">
+         <property name="text">
+          <string>Wyjście</string>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+    </item>
+    <item>
+     <spacer name="verticalSpacer_2">
+      <property name="orientation">
+       <enum>Qt::Vertical</enum>
+      </property>
+      <property name="sizeHint" stdset="0">
+       <size>
+        <width>20</width>
+        <height>63</height>
+       </size>
+      </property>
+     </spacer>
     </item>
    </layout>
   </widget>
@@ -290,13 +206,13 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>360</width>
+     <width>220</width>
      <height>20</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuGame">
     <property name="title">
-     <string>Labirynt</string>
+     <string>Szybka gra</string>
     </property>
     <addaction name="actionEasy"/>
     <addaction name="actionMedium"/>
@@ -307,7 +223,7 @@
    </widget>
    <widget class="QMenu" name="menuFile">
     <property name="title">
-     <string>Plik</string>
+     <string>Labirynt</string>
     </property>
     <addaction name="actionNew"/>
     <addaction name="actionOpen"/>
@@ -315,6 +231,7 @@
     <addaction name="actionSave"/>
     <addaction name="actionSaveAs"/>
     <addaction name="separator"/>
+    <addaction name="actionClose"/>
     <addaction name="separator"/>
     <addaction name="actionExit"/>
    </widget>
@@ -338,7 +255,7 @@
   <widget class="QStatusBar" name="statusBar"/>
   <action name="actionOpen">
    <property name="text">
-    <string>Otwórz z pliku...</string>
+    <string>Wczytaj zapisany...</string>
    </property>
    <property name="toolTip">
     <string>Otwórz z pliku...</string>
@@ -371,7 +288,7 @@
   </action>
   <action name="actionExit">
    <property name="text">
-    <string>Wyjdź</string>
+    <string>Wyjdź z gry</string>
    </property>
    <property name="shortcut">
     <string>Ctrl+Q</string>
@@ -402,7 +319,7 @@
     <bool>false</bool>
    </property>
    <property name="text">
-    <string>Rankingi@</string>
+    <string>Rankingi</string>
    </property>
    <property name="shortcut">
     <string>Ctrl+R</string>
@@ -410,23 +327,22 @@
   </action>
   <action name="actionNew">
    <property name="text">
-    <string>Nowy</string>
+    <string>Nowa gra</string>
    </property>
    <property name="shortcut">
     <string>Ctrl+N</string>
    </property>
   </action>
+  <action name="actionClose">
+   <property name="text">
+    <string>Zamknij labirynt</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+C</string>
+   </property>
+  </action>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
- <tabstops>
-  <tabstop>radioButton_Easy</tabstop>
-  <tabstop>radioButton_Medium</tabstop>
-  <tabstop>radioButton_Hard</tabstop>
-  <tabstop>radioButton_Expert</tabstop>
-  <tabstop>checkBox_colour</tabstop>
-  <tabstop>checkBox_reducedView</tabstop>
-  <tabstop>checkBox_time</tabstop>
- </tabstops>
  <resources/>
  <connections>
   <connection>

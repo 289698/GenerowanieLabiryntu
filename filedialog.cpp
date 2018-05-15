@@ -8,77 +8,55 @@ FileDialog::FileDialog(QWidget *parent) :
     ui->setupUi(this);
 }
 
-FileDialog::~FileDialog()
-{
+FileDialog::~FileDialog(){
     delete ui;
 }
 
-void FileDialog::addFileInfo(QStringList fileInfo)
-{
+void FileDialog::addFileInfo(const QStringList &fileInfo){
     QTreeWidgetItem *fileInfoItem = new QTreeWidgetItem(ui->tw_filesList, fileInfo);
-
     ui->tw_filesList->addTopLevelItem(fileInfoItem);
 }
 
-void FileDialog::on_tw_filesList_itemClicked(QTreeWidgetItem *item, int column)
-{
+void FileDialog::on_tw_filesList_itemClicked(QTreeWidgetItem *item, int column){
     ui->le_fileName->setText(item->text(0));
 }
 
-void FileDialog::hideOpenButton()
-{
-    ui->pb_Open->hide();
-}
-
-void FileDialog::hideSaveButton()
-{
-    ui->pb_Save->hide();
-}
-
-void FileDialog::hideDeleteButton()
-{
-    ui->pb_Delete->hide();
-}
-
-void FileDialog::clearTree()
-{
+void FileDialog::clearTree(){
     ui->tw_filesList->clear();
 }
 
-void FileDialog::on_pb_Open_clicked()
-{
-    if (ui->le_fileName->text().isEmpty())
-    {
-        ui->le_fileName->setStyleSheet("QLineEdit { background: rgb(255, 100, 100); }");
+void FileDialog::on_pb_Accept_clicked(){
+    emit fileName(ui->le_fileName->text());
+}
+
+void FileDialog::changeButtonText(const QString &name){
+    ui->pb_Accept->setText(name);
+}
+
+void FileDialog::highlightLine(){
+    ui->le_fileName->setStyleSheet("QLineEdit { background: rgb(255, 100, 100); }");
+}
+
+void FileDialog::unhighlightLine(){
+    ui->le_fileName->setStyleSheet("QLineEdit { }");
+}
+
+void FileDialog::on_pb_Delete_clicked(){
+    if (ui->le_fileName->text().isEmpty()){
+        highlightLine();
         return;
     }
-    emit fileNameSignal(ui->le_fileName->text());
+    emit deleteFile(ui->le_fileName->text());
+}
 
+void FileDialog::clearLine(){
+    ui->le_fileName->setText("");
+}
+
+void FileDialog::on_pb_Close_clicked(){
     this->close();
 }
 
-void FileDialog::on_pb_Save_clicked()
-{
-    if (ui->le_fileName->text().isEmpty())
-    {
-        ui->le_fileName->setStyleSheet("QLineEdit { background: rgb(255, 100, 100); }");
-        return;
-    }
-    emit fileNameSignal(ui->le_fileName->text());
-    this->close();
-}
-
-void FileDialog::on_pb_Delete_clicked()
-{
-    if (ui->le_fileName->text().isEmpty())
-    {
-        ui->le_fileName->setStyleSheet("QLineEdit { background: rgb(255, 100, 100); }");
-        return;
-    }
-    emit deleteFileSignal(ui->le_fileName->text());
-}
-
-void FileDialog::on_pb_Close_clicked()
-{
-    this->close();
+void FileDialog::on_le_fileName_textChanged(const QString &arg1){
+    emit testFileName(arg1);
 }

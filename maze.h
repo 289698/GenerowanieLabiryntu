@@ -11,6 +11,7 @@ struct MazeStruct
     int **array;
     QPoint currentPos;
     QString name;
+    bool isDefault;
 };
 
 class Maze : public QObject
@@ -21,9 +22,8 @@ public:
 
     MazeStruct *maze;
 
-signals:
+private:
 
-public slots:
 };
 
 #endif // MAZE_H

@@ -11,7 +11,7 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Dialog</string>
+   <string>Wygrana!</string>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout_3">
    <item>
@@ -53,37 +53,45 @@
    </item>
    <item>
     <layout class="QGridLayout" name="gridLayout">
-     <item row="0" column="1" alignment="Qt::AlignLeft">
-      <widget class="QLineEdit" name="le_hxw">
-       <property name="placeholderText">
-        <string/>
+     <item row="0" column="2" alignment="Qt::AlignLeft">
+      <widget class="QLabel" name="label_hxw">
+       <property name="text">
+        <string>TextLabel</string>
+       </property>
+      </widget>
+     </item>
+     <item row="1" column="2" alignment="Qt::AlignLeft">
+      <widget class="QLabel" name="label_difficulty">
+       <property name="text">
+        <string>TextLabel</string>
        </property>
       </widget>
      </item>
      <item row="1" column="0" alignment="Qt::AlignRight">
-      <widget class="QLabel" name="label_difficulty">
+      <widget class="QLabel" name="label_difficultyText">
        <property name="text">
         <string>St. trudności:</string>
        </property>
       </widget>
      </item>
-     <item row="1" column="1" alignment="Qt::AlignLeft">
-      <widget class="QLineEdit" name="le_difficulty"/>
-     </item>
-     <item row="2" column="1" alignment="Qt::AlignLeft">
-      <widget class="QLineEdit" name="le_seconds"/>
-     </item>
      <item row="2" column="0" alignment="Qt::AlignRight">
-      <widget class="QLabel" name="label_seconds">
+      <widget class="QLabel" name="label_secondsText">
        <property name="text">
         <string>Czas:</string>
        </property>
       </widget>
      </item>
      <item row="0" column="0" alignment="Qt::AlignRight">
-      <widget class="QLabel" name="label_hxw">
+      <widget class="QLabel" name="label_hxwText">
        <property name="text">
         <string>Wymiary:</string>
+       </property>
+      </widget>
+     </item>
+     <item row="2" column="2" alignment="Qt::AlignLeft">
+      <widget class="QLabel" name="label_seconds">
+       <property name="text">
+        <string>TextLabel</string>
        </property>
       </widget>
      </item>
@@ -115,7 +123,20 @@
       </widget>
      </item>
      <item>
-      <widget class="QLineEdit" name="le_nick"/>
+      <widget class="QLineEdit" name="le_nick">
+       <property name="toolTip">
+        <string/>
+       </property>
+       <property name="toolTipDuration">
+        <number>3</number>
+       </property>
+       <property name="maxLength">
+        <number>15</number>
+       </property>
+       <property name="placeholderText">
+        <string>Maksymalnie 15 znaków</string>
+       </property>
+      </widget>
      </item>
     </layout>
    </item>

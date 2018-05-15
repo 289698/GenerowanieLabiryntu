@@ -6,51 +6,44 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>356</width>
-    <height>325</height>
+    <width>347</width>
+    <height>343</height>
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Dialog</string>
+   <string>Nowy labirynt</string>
   </property>
-  <layout class="QVBoxLayout" name="verticalLayout_11">
+  <layout class="QVBoxLayout" name="verticalLayout_5">
    <item>
-    <layout class="QGridLayout" name="gridLayout_2">
+    <layout class="QGridLayout" name="gridLayout">
      <item row="0" column="0">
-      <widget class="QGroupBox" name="groupBox_main_2">
+      <widget class="QGroupBox" name="groupBox_main">
        <property name="title">
-        <string>Głowne opcje:</string>
+        <string>Główne opcje:</string>
        </property>
-       <layout class="QHBoxLayout" name="horizontalLayout_6">
+       <layout class="QHBoxLayout" name="horizontalLayout">
         <item>
-         <layout class="QVBoxLayout" name="verticalLayout_6">
+         <layout class="QVBoxLayout" name="verticalLayout_3">
           <item>
-           <widget class="QLabel" name="label_height_2">
+           <widget class="QLabel" name="label_height">
             <property name="text">
              <string>Wysokość labiryntu:</string>
             </property>
            </widget>
           </item>
           <item>
-           <widget class="QLabel" name="label_width_2">
+           <widget class="QLabel" name="label_width">
             <property name="text">
              <string>Szerokość labiryntu:</string>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <widget class="QLabel" name="label_size_2">
-            <property name="text">
-             <string>Rozmiar labiryntu:</string>
             </property>
            </widget>
           </item>
          </layout>
         </item>
         <item>
-         <layout class="QVBoxLayout" name="verticalLayout_7">
+         <layout class="QVBoxLayout" name="verticalLayout_4">
           <item>
-           <widget class="QSpinBox" name="spinBox_height_2">
+           <widget class="QSpinBox" name="spinBox_height">
             <property name="minimum">
              <number>20</number>
             </property>
@@ -59,35 +52,25 @@
             </property>
             <property name="singleStep">
              <number>5</number>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <widget class="QSpinBox" name="spinBox_width_2">
-            <property name="minimum">
-             <number>20</number>
-            </property>
-            <property name="maximum">
-             <number>100</number>
-            </property>
-            <property name="singleStep">
-             <number>5</number>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <widget class="QSpinBox" name="spinBox_size_2">
-            <property name="minimum">
-             <number>3</number>
-            </property>
-            <property name="maximum">
-             <number>20</number>
-            </property>
-            <property name="singleStep">
-             <number>1</number>
             </property>
             <property name="value">
-             <number>7</number>
+             <number>30</number>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QSpinBox" name="spinBox_width">
+            <property name="minimum">
+             <number>20</number>
+            </property>
+            <property name="maximum">
+             <number>100</number>
+            </property>
+            <property name="singleStep">
+             <number>5</number>
+            </property>
+            <property name="value">
+             <number>50</number>
             </property>
            </widget>
           </item>
@@ -97,22 +80,22 @@
       </widget>
      </item>
      <item row="0" column="1">
-      <widget class="QGroupBox" name="groupBox_difficulty_2">
+      <widget class="QGroupBox" name="groupBox_difficulty">
        <property name="title">
-        <string>Trudność labiryntu:</string>
+        <string>Stopień trudności:</string>
        </property>
-       <layout class="QVBoxLayout" name="verticalLayout_8">
+       <layout class="QVBoxLayout" name="verticalLayout_2">
         <item>
-         <widget class="QRadioButton" name="radioButton_Easy_2">
+         <widget class="QRadioButton" name="radioButton_easy">
           <property name="text">
-           <string>Łatwa</string>
+           <string>Niski</string>
           </property>
          </widget>
         </item>
         <item>
-         <widget class="QRadioButton" name="radioButton_Medium_2">
+         <widget class="QRadioButton" name="radioButton_medium">
           <property name="text">
-           <string>Średnia</string>
+           <string>Średni</string>
           </property>
           <property name="checked">
            <bool>true</bool>
@@ -120,14 +103,14 @@
          </widget>
         </item>
         <item>
-         <widget class="QRadioButton" name="radioButton_Hard_2">
+         <widget class="QRadioButton" name="radioButton_hard">
           <property name="text">
-           <string>Trudna</string>
+           <string>Wysoki</string>
           </property>
          </widget>
         </item>
         <item>
-         <widget class="QRadioButton" name="radioButton_Expert_2">
+         <widget class="QRadioButton" name="radioButton_expert">
           <property name="text">
            <string>Ekspert</string>
           </property>
@@ -137,36 +120,36 @@
       </widget>
      </item>
      <item row="1" column="0">
-      <widget class="QGroupBox" name="groupBox_options_2">
+      <widget class="QGroupBox" name="groupBox_options">
        <property name="title">
         <string>Dodatkowe opcje:</string>
        </property>
-       <layout class="QVBoxLayout" name="verticalLayout_9">
+       <layout class="QVBoxLayout" name="verticalLayout">
         <item>
-         <widget class="QCheckBox" name="checkBox_colour_2">
+         <widget class="QCheckBox" name="checkBox">
           <property name="text">
-           <string>Kolorowy labirynt@</string>
+           <string>CheckBox</string>
           </property>
          </widget>
         </item>
         <item>
-         <widget class="QCheckBox" name="checkBox_reducedView_2">
+         <widget class="QCheckBox" name="checkBox_4">
           <property name="text">
-           <string>Ograniczony widok@</string>
+           <string>CheckBox</string>
           </property>
          </widget>
         </item>
         <item>
-         <widget class="QCheckBox" name="checkBox_time_2">
+         <widget class="QCheckBox" name="checkBox_2">
           <property name="text">
-           <string>Gra na czas@</string>
+           <string>CheckBox</string>
           </property>
          </widget>
         </item>
         <item>
-         <widget class="QCheckBox" name="checkBox_superUser_2">
+         <widget class="QCheckBox" name="checkBox_3">
           <property name="text">
-           <string>Wiem co robię !</string>
+           <string>CheckBox</string>
           </property>
          </widget>
         </item>
@@ -174,19 +157,27 @@
       </widget>
      </item>
      <item row="1" column="1">
-      <widget class="QGroupBox" name="groupBox_text_2">
+      <widget class="QGroupBox" name="groupBox_4">
        <property name="title">
-        <string>Dodatkowe informacje@:</string>
+        <string>Dodatkowe informacje:</string>
        </property>
-       <layout class="QVBoxLayout" name="verticalLayout_10"/>
+       <layout class="QHBoxLayout" name="horizontalLayout_3">
+        <item>
+         <widget class="QTextBrowser" name="textBrowser_info">
+          <property name="placeholderText">
+           <string>Najedź myszką na opcję, aby wyświetlić pomoc</string>
+          </property>
+         </widget>
+        </item>
+       </layout>
       </widget>
      </item>
     </layout>
    </item>
    <item>
-    <layout class="QHBoxLayout" name="horizontalLayout_5">
+    <layout class="QHBoxLayout" name="horizontalLayout_2">
      <item>
-      <spacer name="horizontalSpacer_4">
+      <spacer name="horizontalSpacer">
        <property name="orientation">
         <enum>Qt::Horizontal</enum>
        </property>
@@ -199,28 +190,22 @@
       </spacer>
      </item>
      <item>
-      <widget class="QPushButton" name="pushButton_play_2">
+      <widget class="QPushButton" name="pushButton_play">
        <property name="text">
-        <string>! GRAMY !</string>
+        <string>Graj</string>
        </property>
       </widget>
      </item>
      <item>
-      <widget class="QPushButton" name="pb_Cancel_2">
+      <widget class="QPushButton" name="pushButton_close">
        <property name="text">
-        <string>Zamnkij</string>
+        <string>Zamknij</string>
        </property>
       </widget>
      </item>
     </layout>
    </item>
   </layout>
-  <zorder>horizontalSpacer_3</zorder>
-  <zorder>label_header</zorder>
-  <zorder>horizontalSpacer_2</zorder>
-  <zorder>horizontalSpacer_3</zorder>
-  <zorder>layoutWidget</zorder>
-  <zorder>layoutWidget_2</zorder>
  </widget>
  <resources/>
  <connections/>

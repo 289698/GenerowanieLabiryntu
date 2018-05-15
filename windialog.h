@@ -4,6 +4,8 @@
 #include <QDialog>
 #include <maze.h>
 
+#include <QDebug>
+
 namespace Ui {
 class WinDialog;
 }
@@ -16,14 +18,24 @@ public:
     explicit WinDialog(QWidget *parent = 0);
     ~WinDialog();
     void fillLineEdits(MazeStruct *maze);
+    void hideLeader();
+    void highlightName();
+    void unhighlightName();
+    void highlightNick();
+    void unhighlightNick();
 
 signals:
-    void fileNameSignal(QString);
+    void fileName(QString);
+    void nick(QString);
+    void testFileName(QString);
+    void testNick(QString);
 
 private slots:
     void on_cb_ranking_clicked(bool checked);
     void on_pb_Save_clicked();
     void on_pb_Close_clicked();
+    void on_le_name_textChanged(const QString &arg1);
+    void on_le_nick_textChanged(const QString &arg1);
 
 private:
     Ui::WinDialog *ui;

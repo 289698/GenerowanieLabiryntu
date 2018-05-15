@@ -20,7 +20,8 @@ SOURCES += main.cpp\
     maze.cpp \
     filemanagment.cpp \
     windialog.cpp \
-    settingsdialog.cpp
+    settingsdialog.cpp \
+    leaderdialog.cpp
 
 HEADERS  += mainwindow.h \
     generating.h \
@@ -29,9 +30,11 @@ HEADERS  += mainwindow.h \
     maze.h \
     filemanagment.h \
     windialog.h \
-    settingsdialog.h
+    settingsdialog.h \
+    leaderdialog.h
 
 FORMS    += mainwindow.ui \
     filedialog.ui \
     windialog.ui \
-    settingsdialog.ui
+    settingsdialog.ui \
+    leaderdialog.ui
