@@ -131,13 +131,13 @@ void Generating::makeRandomPath(Point &currentPos, char direction)
 char Generating::randomDirection(Point currentPos)
 {
     bool dirN = 0,
-         dirE = 0,
-         dirS = 0,
-         dirW = 0;
+            dirE = 0,
+            dirS = 0,
+            dirW = 0;
     int numberOfDirections = 0,
-        i = 0;
+            i = 0;
     char *directionsArray,
-         direction;
+            direction;
 
     if (currentPos.row-1 >= 0            && !(visitedArray[currentPos.row-1][currentPos.col])) {
         dirN = 1; numberOfDirections++;
@@ -187,7 +187,7 @@ bool Generating::findNextPoint(Point &currentPos)
         {
             bool isPointFound = 0;
 
-                 if (j < mazeWidth-1  && visitedArray[i][j+1])
+            if (j < mazeWidth-1  && visitedArray[i][j+1])
             {
                 *(bordersArray[i][j].E) = 0;
                 isPointFound = 1;
@@ -221,9 +221,14 @@ bool Generating::findNextPoint(Point &currentPos)
 
 void Generating::tempDiff(int difficulty)
 {
+    if(difficulty == 0)
+    {
+        minLength = 0;
+        maxLength = RAND_MAX;
+        return;
+    }
     minLength = (mazeHeight + mazeWidth) * difficulty;
     maxLength = (mazeHeight + mazeWidth) * difficulty * 1.5;
-    return;
 }
 
 void Generating::resetvisitedArray()
@@ -240,10 +245,10 @@ void Generating::rewriteArray()
         for (int j=0; j<mazeWidth; j++)
         {
             mazeArray[i][j] = 0
-                    + int(*(bordersArray[i][j].N)) * 1
-                    + int(*(bordersArray[i][j].E)) * 2
-                    + int(*(bordersArray[i][j].S)) * 4
-                    + int(*(bordersArray[i][j].W)) * 8;
+                              + int(*(bordersArray[i][j].N)) * 1
+                              + int(*(bordersArray[i][j].E)) * 2
+                              + int(*(bordersArray[i][j].S)) * 4
+                              + int(*(bordersArray[i][j].W)) * 8;
         }
     }
 }

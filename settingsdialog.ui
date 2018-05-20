@@ -26,6 +26,9 @@
          <layout class="QVBoxLayout" name="verticalLayout_3">
           <item>
            <widget class="QLabel" name="label_height">
+            <property name="mouseTracking">
+             <bool>false</bool>
+            </property>
             <property name="text">
              <string>Wysokość labiryntu:</string>
             </property>
@@ -44,6 +47,9 @@
          <layout class="QVBoxLayout" name="verticalLayout_4">
           <item>
            <widget class="QSpinBox" name="spinBox_height">
+            <property name="mouseTracking">
+             <bool>false</bool>
+            </property>
             <property name="minimum">
              <number>20</number>
             </property>
@@ -116,6 +122,13 @@
           </property>
          </widget>
         </item>
+        <item>
+         <widget class="QRadioButton" name="radioButton_any">
+          <property name="text">
+           <string>Dowolny</string>
+          </property>
+         </widget>
+        </item>
        </layout>
       </widget>
      </item>
@@ -126,9 +139,9 @@
        </property>
        <layout class="QVBoxLayout" name="verticalLayout">
         <item>
-         <widget class="QCheckBox" name="checkBox">
+         <widget class="QCheckBox" name="checkBox_superUser">
           <property name="text">
-           <string>CheckBox</string>
+           <string>Wiem co robię</string>
           </property>
          </widget>
         </item>

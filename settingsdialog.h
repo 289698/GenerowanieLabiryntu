@@ -23,6 +23,8 @@ private slots:
 
     void on_pushButton_close_clicked();
 
+    void on_checkBox_superUser_clicked();
+
 private:
     Ui::SettingsDialog *ui;
 };

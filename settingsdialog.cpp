@@ -23,6 +23,8 @@ void SettingsDialog::on_pushButton_play_clicked(){
         difficulty = 3;
     if (ui->radioButton_expert->isChecked())
         difficulty = 4;
+    if (ui->radioButton_any->isChecked())
+        difficulty = 0;
 
     emit mazeInfo(ui->spinBox_height->value(), ui->spinBox_width->value(), difficulty);
     this->close();
@@ -30,4 +32,13 @@ void SettingsDialog::on_pushButton_play_clicked(){
 
 void SettingsDialog::on_pushButton_close_clicked(){
     this->close();
+}
+
+void SettingsDialog::on_checkBox_superUser_clicked(){
+    ui->spinBox_height->setMinimum(0);
+    ui->spinBox_height->setMaximum(1000);
+    ui->spinBox_height->setSingleStep(1);
+    ui->spinBox_width->setMinimum(0);
+    ui->spinBox_width->setMaximum(1000);
+    ui->spinBox_width->setSingleStep(1);
 }

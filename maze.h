@@ -9,7 +9,7 @@ struct MazeStruct
 {
     int height, width, start, end, difficulty, seconds;
     int **array;
-    QPoint currentPos;
+    QPoint current_pos;
     QString name;
     bool isDefault;
 };

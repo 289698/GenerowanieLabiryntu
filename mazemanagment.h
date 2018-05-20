@@ -24,7 +24,7 @@ private slots:
     void loadSlot(int height, int width);
 
 private:
-    Generating* mazeGen;
+    Generating* maze_gen;
     FileManagment* file;
 
     void generate();

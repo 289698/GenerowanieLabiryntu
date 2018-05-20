@@ -68,11 +68,11 @@ void MazeManagment::create(int height, int width, int difficulty){
 }
 
 void MazeManagment::generate(){
-    mazeGen = new Generating(maze->array, maze->height, maze->width, maze->difficulty);
-    mazeGen->generateMaze(maze->start, maze->end);
-    delete mazeGen;
-    maze->currentPos.setX(0);
-    maze->currentPos.setY(maze->start);
+    maze_gen = new Generating(maze->array, maze->height, maze->width, maze->difficulty);
+    maze_gen->generateMaze(maze->start, maze->end);
+    delete maze_gen;
+    maze->current_pos.setX(0);
+    maze->current_pos.setY(maze->start);
 }
 
 void MazeManagment::newMaze(){
@@ -102,8 +102,8 @@ void MazeManagment::reset(){
     maze->end = 0;
     maze->difficulty = 0;
     maze->array = NULL;
-    maze->currentPos.setX(0);
-    maze->currentPos.setY(0);
+    maze->current_pos.setX(0);
+    maze->current_pos.setY(0);
     maze->seconds = 0;
     maze->name = QString::null;
     maze->isDefault = 0;

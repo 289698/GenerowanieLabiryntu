@@ -1,28 +1,27 @@
 #include "filemanagment.h"
 
 FileManagment::FileManagment(){
-    dirSaves = new QDir;
+    dir_saves = new QDir;
 
-    if (!dirSaves->cd("saves"))
+    if (!dir_saves->cd("saves"))
     {
-        dirSaves->mkdir("saves");
-        dirSaves->cd("saves");
+        dir_saves->mkdir("saves");
+        dir_saves->cd("saves");
     }
 }
 
 FileManagment::~FileManagment(){
-    delete dirSaves;
+    delete dir_saves;
 }
 //------------------------------------------------
 void FileManagment::finish(){
     win = new WinDialog;
     win->fillLineEdits(maze);
-
     if (!maze->isDefault || !isBetter())
         win->hideLeader();
 
     connect(win, SIGNAL(fileName(QString)), this, SLOT(saveAfterFinish(QString)));
-    connect(win, SIGNAL(nick(QString)), this, SLOT(saveToLeader(QString)));
+    connect(win, SIGNAL(nameAndNick(QString, QString)), this, SLOT(saveToLeader(QString, QString)));
     connect(win, SIGNAL(testFileName(QString)), this, SLOT(testLeaderName(QString)));
     connect(win, SIGNAL(testNick(QString)), this, SLOT(testNick(QString)));
 
@@ -33,22 +32,17 @@ void FileManagment::finish(){
 bool FileManagment::isBetter(){
     if (maze->difficulty > 4)
         return 0;
-
-    QFile file("LeaderBoard.txt");
+    QFile file(dir_saves->filePath("LeaderBoard.txt"));
     if(!file.open(QIODevice::ReadOnly | QIODevice::Text))
         return 0;
-
     QTextStream inStream(&file);
     QString oldSecs;
     for (int i=0; i<maze->difficulty; ++i)
         oldSecs = inStream.readLine();
-
     file.flush();
     file.close();
-
     if (oldSecs.toInt() < maze->seconds)
         return 0;
-
     return 1;
 }
 
@@ -57,7 +51,6 @@ bool FileManagment::testLeaderName(const QString &fileName){
         win->highlightName();
         return 1;
     }
-
     win->unhighlightName();
     return 0;
 }
@@ -67,16 +60,15 @@ bool FileManagment::testNick(const QString &nick){
         win->highlightNick();
         return 1;
     }
-
     win->unhighlightNick();
     return 0;
 }
 
-void FileManagment::saveToLeader(const QString &nick){
-    if(testNick(nick) || !isBetter())
+void FileManagment::saveToLeader(const QString &fileName, const QString &nick){
+    if(testNick(nick) || testLeaderName(fileName))
         return;
 
-    QFile file("LeaderBoard.txt");
+    QFile file(dir_saves->filePath("LeaderBoard.txt"));
     if(!file.open(QIODevice::ReadOnly | QIODevice::Text)){
         resetLeader();
         if(!file.open(QIODevice::ReadOnly | QIODevice::Text))
@@ -105,14 +97,15 @@ void FileManagment::saveToLeader(const QString &nick){
 
     file.flush();
     file.close();
+    saveAfterFinish(fileName);
 }
 
 void FileManagment::saveAfterFinish(const QString &fileName){
     if (testLeaderName(fileName))
         return;
     maze->name = fileName;
-    maze->currentPos.setX(0);
-    maze->currentPos.setY(maze->start);
+    maze->current_pos.setX(0);
+    maze->current_pos.setY(maze->start);
     maze->seconds = 0;
     save();
     win->close();
@@ -127,7 +120,7 @@ void FileManagment::openLeader(){
 }
 
 void FileManagment::fillLeaderTable(){
-    QFile file("LeaderBoard.txt");
+    QFile file(dir_saves->filePath("LeaderBoard.txt"));
     if(!file.open(QIODevice::ReadOnly | QIODevice::Text))
         return;
 
@@ -149,12 +142,12 @@ void FileManagment::fillLeaderTable(){
 }
 
 void FileManagment::resetLeader(){
-    QFile file("LeaderBoard.txt");
+    QFile file(dir_saves->filePath("LeaderBoard.txt"));
     if(!file.open(QIODevice::WriteOnly | QIODevice::Text))
         return;
     QTextStream outStream(&file);
     for (int i=0; i<4; ++i)
-        outStream << "10000000" << endl;
+        outStream << "100000000" << endl;
     for (int i=0; i<4; ++i)
         outStream << "----" << endl;
 
@@ -184,8 +177,7 @@ bool FileManagment::testLoadName(const QString &fileName){
         dialog->highlightLine();
         return 1;
     }
-
-    QFile file(dirSaves->filePath(fileName + ".txt"));
+    QFile file(dir_saves->filePath(fileName + ".txt"));
     if(!file.open(QIODevice::ReadOnly | QIODevice::Text)){
         dialog->highlightLine();
         return 1;
@@ -200,7 +192,7 @@ bool FileManagment::testLoadName(const QString &fileName){
 void FileManagment::load(const QString &fileName){
     if (testLoadName(fileName))
         return;
-    QFile file(dirSaves->filePath(fileName + ".txt"));
+    QFile file(dir_saves->filePath(fileName + ".txt"));
     if(!file.open(QIODevice::ReadOnly | QIODevice::Text))
         return;
 
@@ -209,7 +201,7 @@ void FileManagment::load(const QString &fileName){
     inStream >> height >> width;
     emit loadSignal(height, width);
 
-    inStream >> maze->difficulty >> maze->seconds >> maze->start >> maze->end >> maze->currentPos.rx() >> maze->currentPos.ry();
+    inStream >> maze->difficulty >> maze->seconds >> maze->start >> maze->end >> maze->current_pos.rx() >> maze->current_pos.ry();
     maze->name = fileName;
     for (int i=0; i<maze->height; ++i)
         for (int j=0; j<maze->width; j++)
@@ -221,13 +213,13 @@ void FileManagment::load(const QString &fileName){
 }
 //------------------------------------------------
 void FileManagment::save(){
-    QFile file(dirSaves->filePath(maze->name + ".txt"));
+    QFile file(dir_saves->filePath(maze->name + ".txt"));
     if (!file.open(QIODevice::WriteOnly | QIODevice::Text))
         return;
 
     QTextStream outStream(&file);
     outStream << maze->height << " " << maze->width << " " << maze->difficulty << " " << maze->seconds << " "
-        << maze->start << " " << maze->end << " " << maze->currentPos.x() << " " << maze->currentPos.y();
+              << maze->start << " " << maze->end << " " << maze->current_pos.x() << " " << maze->current_pos.y();
     for (int i=0; i<maze->height; ++i)
         for (int j=0; j<maze->width; j++)
             outStream << " " << maze->array[i][j];
@@ -251,27 +243,26 @@ void FileManagment::saveAs(){
 }
 
 bool FileManagment::testSaveName(const QString &fileName){
-    if(fileName.isEmpty())
-    {
+    if(fileName.isEmpty()){
         dialog->highlightLine();
         return 1;
     }
 
-//    QFile file(dirSaves->filePath(fileName + ".txt"));
-//    if(!file.open(QIODevice::ReadOnly | QIODevice::Text))
-//    {
-//        dialog->unhighlightLine();
-//        return;
-//    }
-//    file.flush();
-//    file.close();
+    //    QFile file(dir_saves->filePath(fileName + ".txt"));
+    //    if(!file.open(QIODevice::ReadOnly | QIODevice::Text))
+    //    {
+    //        dialog->unhighlightLine();
+    //        return;
+    //    }
+    //    file.flush();
+    //    file.close();
 
     dialog->unhighlightLine();
     return 0;
 }
 
 void FileManagment::save(const QString &fileName){
-    if (fileName.isEmpty() || testSaveName(fileName))
+    if (testSaveName(fileName))
         return;
     maze->name = fileName;
     save();
@@ -279,7 +270,7 @@ void FileManagment::save(const QString &fileName){
 }
 //------------------------------------------------
 void FileManagment::deleteFile(const QString &fileName){
-    QFile file(dirSaves->filePath(fileName + ".txt"));
+    QFile file(dir_saves->filePath(fileName + ".txt"));
 
     if (file.remove())
         dialog->clearLine();
@@ -294,10 +285,10 @@ void FileManagment::deleteFile(const QString &fileName){
 void FileManagment::fillFilesList(){
     dialog->clearTree();
 
-    QStringList filesList = dirSaves->entryList(QDir::Files, QDir::Time);
+    QStringList filesList = dir_saves->entryList(QDir::Files, QDir::Time);
 
     for (int i=0; i<filesList.size(); ++i){
-        QFile file(dirSaves->filePath(filesList.at(i)));
+        QFile file(dir_saves->filePath(filesList.at(i)));
         if(!file.open(QIODevice::ReadOnly | QIODevice::Text))
             return;
 
@@ -335,7 +326,7 @@ void FileManagment::fillFilesList(){
 //    QTextStream inStream(&file);
 //    QString input;
 //    bool ok;
-//    int minfo[8]; // 0-height, 1-width, 2-difficulty, 3-seconds, 4-start, 5-end, 6-currentPos_x, 7-currentPos_y;
+//    int minfo[8]; // 0-height, 1-width, 2-difficulty, 3-seconds, 4-start, 5-end, 6-current_pos_x, 7-current_pos_y;
 
 //    for (int i=0; i<8; ++i)
 //    {

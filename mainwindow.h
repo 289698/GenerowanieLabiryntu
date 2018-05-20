@@ -8,8 +8,6 @@
 #include "mazemanagment.h"
 #include "settingsdialog.h"
 
-#include "warningdialog.h"
-
 namespace Ui {
 class MainWindow;
 }
@@ -35,7 +33,7 @@ private slots:
 
     void measureTime();
     void prepareMaze(int height, int width, int difficulty, bool isDefault = 0);
-    void alterMazeSize();
+//    void alterMazeSize();
 
     void on_pushButton_new_clicked();
     void on_pushButton_load_clicked();
@@ -45,6 +43,8 @@ private slots:
     void on_pushButton_medium_clicked();
     void on_pushButton_hard_clicked();
     void on_pushButton_expert_clicked();
+    void on_pushButtonMinus_clicked();
+    void on_pushButtonPlus_clicked();
 
 private:
     Ui::MainWindow *ui;
@@ -52,25 +52,29 @@ private:
     SettingsDialog *setting;
     QTimer *timer = NULL;
 
-    const int timeInterval = 100;
-    int marginTop = 65, marginLeft = 20;
-    double mazeSize = 7;
-    bool isPainterOff = 0;
+    const int kTimeInterval = 100, kWindowWidth = 300, kWindowHeight = 280;
+    int margin_top = 75, margin_bottom = 45, margin_left = 20;
+    int maze_size = 8;
+    bool is_painter_off = 0;
 
-    void keyPressEvent(QKeyEvent *event);
-    bool isMovePossible(int direction);
+    inline void resizeWindow(){
+        this->setFixedSize((game->maze->width-1) * maze_size*2 + margin_left*2, (game->maze->height-1) * maze_size*2 + margin_top + margin_bottom);}
+
     void finish();
     void fillLabels();
     void hideLabels();
-    void pauseGame();
     void startGame();
+    void pauseGame();
+
+    void keyPressEvent(QKeyEvent *event);
+    bool isMovePossible(int direction);
 
     void paintEvent(QPaintEvent *);
     void drawSquare(QPainter *painter, QPoint pos, int borders);
     QPoint grid(int x, int y);
     QPoint grid(QPoint point);
 
-    void resizeEvent(QResizeEvent* event);
+    //void resizeEvent(QResizeEvent* event);
 };
 
 #endif // MAINWINDOW_H

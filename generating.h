@@ -6,22 +6,19 @@
 
 using namespace std;
 
-struct Borders
-{
+struct Borders{
     bool *N;
     bool *E;
     bool *S;
     bool *W;
 };
 
-struct Point
-{
+struct Point{
     int row;
     int col;
 };
 
-class Generating
-{
+class Generating{
 public:
 
     Generating(int **adress, int mazeHeight, int mazeWidth, int difficulty);

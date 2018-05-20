@@ -26,7 +26,7 @@ public:
 
 signals:
     void fileName(QString);
-    void nick(QString);
+    void nameAndNick(QString, QString);
     void testFileName(QString);
     void testNick(QString);
 

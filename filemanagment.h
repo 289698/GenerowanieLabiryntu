@@ -34,7 +34,7 @@ private slots:
     bool testLoadName(const QString &fileName);
     void deleteFile(const QString &fileName);
     void resetLeader();
-    void saveToLeader(const QString &nick);
+    void saveToLeader(const QString &fileName, const QString &nick);
     bool testNick(const QString &nick);
     void saveAfterFinish(const QString &fileName);
     bool testLeaderName(const QString &fileName);
@@ -43,7 +43,7 @@ private:
     FileDialog *dialog;
     LeaderDialog *leader;
     WinDialog *win;
-    QDir *dirSaves;
+    QDir *dir_saves;
 
     void fillFilesList();
     void fillLeaderTable();
