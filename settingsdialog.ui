@@ -6,20 +6,23 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>347</width>
-    <height>343</height>
+    <width>358</width>
+    <height>297</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>Nowy labirynt</string>
   </property>
-  <layout class="QVBoxLayout" name="verticalLayout_5">
+  <layout class="QVBoxLayout" name="verticalLayout_2">
    <item>
-    <layout class="QGridLayout" name="gridLayout">
+    <layout class="QGridLayout" name="gridLayout_2">
      <item row="0" column="0">
       <widget class="QGroupBox" name="groupBox_main">
+       <property name="contextMenuPolicy">
+        <enum>Qt::CustomContextMenu</enum>
+       </property>
        <property name="title">
-        <string>Główne opcje:</string>
+        <string>Rozmiar labiryntu:</string>
        </property>
        <layout class="QHBoxLayout" name="horizontalLayout">
         <item>
@@ -29,6 +32,9 @@
             <property name="mouseTracking">
              <bool>false</bool>
             </property>
+            <property name="contextMenuPolicy">
+             <enum>Qt::CustomContextMenu</enum>
+            </property>
             <property name="text">
              <string>Wysokość labiryntu:</string>
             </property>
@@ -36,6 +42,9 @@
           </item>
           <item>
            <widget class="QLabel" name="label_width">
+            <property name="contextMenuPolicy">
+             <enum>Qt::CustomContextMenu</enum>
+            </property>
             <property name="text">
              <string>Szerokość labiryntu:</string>
             </property>
@@ -44,11 +53,27 @@
          </layout>
         </item>
         <item>
+         <spacer name="horizontalSpacer_2">
+          <property name="orientation">
+           <enum>Qt::Horizontal</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>40</width>
+            <height>20</height>
+           </size>
+          </property>
+         </spacer>
+        </item>
+        <item>
          <layout class="QVBoxLayout" name="verticalLayout_4">
           <item>
            <widget class="QSpinBox" name="spinBox_height">
             <property name="mouseTracking">
              <bool>false</bool>
+            </property>
+            <property name="contextMenuPolicy">
+             <enum>Qt::CustomContextMenu</enum>
             </property>
             <property name="minimum">
              <number>20</number>
@@ -66,6 +91,9 @@
           </item>
           <item>
            <widget class="QSpinBox" name="spinBox_width">
+            <property name="contextMenuPolicy">
+             <enum>Qt::CustomContextMenu</enum>
+            </property>
             <property name="minimum">
              <number>20</number>
             </property>
@@ -90,16 +118,42 @@
        <property name="title">
         <string>Stopień trudności:</string>
        </property>
-       <layout class="QVBoxLayout" name="verticalLayout_2">
-        <item>
+       <layout class="QGridLayout" name="gridLayout">
+        <item row="0" column="0">
          <widget class="QRadioButton" name="radioButton_easy">
+          <property name="contextMenuPolicy">
+           <enum>Qt::CustomContextMenu</enum>
+          </property>
           <property name="text">
            <string>Niski</string>
           </property>
          </widget>
         </item>
-        <item>
+        <item row="1" column="1">
+         <widget class="QRadioButton" name="radioButton_expert">
+          <property name="contextMenuPolicy">
+           <enum>Qt::CustomContextMenu</enum>
+          </property>
+          <property name="text">
+           <string>Ekspert</string>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="1">
+         <widget class="QRadioButton" name="radioButton_hard">
+          <property name="contextMenuPolicy">
+           <enum>Qt::CustomContextMenu</enum>
+          </property>
+          <property name="text">
+           <string>Wysoki</string>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="0">
          <widget class="QRadioButton" name="radioButton_medium">
+          <property name="contextMenuPolicy">
+           <enum>Qt::CustomContextMenu</enum>
+          </property>
           <property name="text">
            <string>Średni</string>
           </property>
@@ -108,61 +162,127 @@
           </property>
          </widget>
         </item>
-        <item>
-         <widget class="QRadioButton" name="radioButton_hard">
-          <property name="text">
-           <string>Wysoki</string>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="QRadioButton" name="radioButton_expert">
-          <property name="text">
-           <string>Ekspert</string>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="QRadioButton" name="radioButton_any">
-          <property name="text">
-           <string>Dowolny</string>
-          </property>
-         </widget>
-        </item>
        </layout>
       </widget>
      </item>
      <item row="1" column="0">
       <widget class="QGroupBox" name="groupBox_options">
+       <property name="enabled">
+        <bool>true</bool>
+       </property>
        <property name="title">
         <string>Dodatkowe opcje:</string>
        </property>
+       <property name="checkable">
+        <bool>false</bool>
+       </property>
+       <property name="checked">
+        <bool>false</bool>
+       </property>
        <layout class="QVBoxLayout" name="verticalLayout">
         <item>
-         <widget class="QCheckBox" name="checkBox_superUser">
-          <property name="text">
-           <string>Wiem co robię</string>
-          </property>
-         </widget>
+         <layout class="QHBoxLayout" name="horizontalLayout_3">
+          <item>
+           <widget class="QCheckBox" name="checkBox_blackout">
+            <property name="contextMenuPolicy">
+             <enum>Qt::CustomContextMenu</enum>
+            </property>
+            <property name="text">
+             <string>Zaciemnienie</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <spacer name="horizontalSpacer_3">
+            <property name="orientation">
+             <enum>Qt::Horizontal</enum>
+            </property>
+            <property name="sizeHint" stdset="0">
+             <size>
+              <width>40</width>
+              <height>20</height>
+             </size>
+            </property>
+           </spacer>
+          </item>
+          <item>
+           <widget class="QSpinBox" name="spinBox_blackout">
+            <property name="enabled">
+             <bool>false</bool>
+            </property>
+            <property name="minimum">
+             <number>1</number>
+            </property>
+            <property name="maximum">
+             <number>10</number>
+            </property>
+            <property name="value">
+             <number>4</number>
+            </property>
+           </widget>
+          </item>
+         </layout>
         </item>
         <item>
-         <widget class="QCheckBox" name="checkBox_4">
-          <property name="text">
-           <string>CheckBox</string>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="QCheckBox" name="checkBox_2">
-          <property name="text">
-           <string>CheckBox</string>
-          </property>
-         </widget>
+         <layout class="QHBoxLayout" name="horizontalLayout_4">
+          <item>
+           <widget class="QCheckBox" name="checkBox_time">
+            <property name="contextMenuPolicy">
+             <enum>Qt::CustomContextMenu</enum>
+            </property>
+            <property name="text">
+             <string>Gra na czas</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <spacer name="horizontalSpacer_4">
+            <property name="orientation">
+             <enum>Qt::Horizontal</enum>
+            </property>
+            <property name="sizeHint" stdset="0">
+             <size>
+              <width>40</width>
+              <height>20</height>
+             </size>
+            </property>
+           </spacer>
+          </item>
+          <item>
+           <widget class="QSpinBox" name="spinBox_time">
+            <property name="enabled">
+             <bool>false</bool>
+            </property>
+            <property name="minimum">
+             <number>1</number>
+            </property>
+            <property name="maximum">
+             <number>10000</number>
+            </property>
+            <property name="value">
+             <number>500</number>
+            </property>
+           </widget>
+          </item>
+         </layout>
         </item>
         <item>
          <widget class="QCheckBox" name="checkBox_3">
+          <property name="contextMenuPolicy">
+           <enum>Qt::CustomContextMenu</enum>
+          </property>
           <property name="text">
            <string>CheckBox</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QCheckBox" name="checkBox_superUser">
+          <property name="contextMenuPolicy">
+           <enum>Qt::CustomContextMenu</enum>
+          </property>
+          <property name="text">
+           <string>Wiem co robię</string>
           </property>
          </widget>
         </item>
@@ -170,19 +290,10 @@
       </widget>
      </item>
      <item row="1" column="1">
-      <widget class="QGroupBox" name="groupBox_4">
+      <widget class="QGroupBox" name="groupBox">
        <property name="title">
-        <string>Dodatkowe informacje:</string>
+        <string>Podgląd:</string>
        </property>
-       <layout class="QHBoxLayout" name="horizontalLayout_3">
-        <item>
-         <widget class="QTextBrowser" name="textBrowser_info">
-          <property name="placeholderText">
-           <string>Najedź myszką na opcję, aby wyświetlić pomoc</string>
-          </property>
-         </widget>
-        </item>
-       </layout>
       </widget>
      </item>
     </layout>
