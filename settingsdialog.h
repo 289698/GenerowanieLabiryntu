@@ -1,3 +1,6 @@
+/*! \file settingdialog.h
+ * Klasa okna z ustawieniami nowego labiryntu.
+ */
 #ifndef SETTINGSDIALOG_H
 #define SETTINGSDIALOG_H
 
@@ -6,7 +9,7 @@
 namespace Ui {
 class SettingsDialog;
 }
-
+//! Klasa okna z ustawieniami nowego labiryntu.
 class SettingsDialog : public QDialog{
     Q_OBJECT
 
@@ -15,18 +18,19 @@ public:
     ~SettingsDialog();
 
 signals:
-    void mainSettings(int,int,int,int);
+    //! Wysyła informacje o labiryncie do void MainWindow::prepareMaze(int height, int width, int difficulty, bool is_default = 0).
+    void mainSettings(int,int,int);
 
 private slots:
+    //! Wysyła informacje o labiryncie do void MainWindow::prepareMaze(int height, int width, int difficulty, bool is_default = 0).
     void on_pushButton_play_clicked();
-    void on_pushButton_close_clicked();
-    void on_checkBox_superUser_clicked(bool checked);
-    void on_checkBox_blackout_clicked(bool checked);
-    void on_checkBox_time_clicked(bool checked);
+    //! Zamyka okno.
+    void on_pushButton_close_clicked(){
+        this->close();
+    }
 
 private:
     Ui::SettingsDialog *ui;
-    void setAllToolTips();
 };
 
 #endif // SETTINGSDIALOG_H

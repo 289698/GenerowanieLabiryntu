@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>670</width>
-    <height>401</height>
+    <width>278</width>
+    <height>334</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -29,6 +29,9 @@
        </property>
        <item>
         <widget class="QPushButton" name="pushButton_minus">
+         <property name="focusPolicy">
+          <enum>Qt::NoFocus</enum>
+         </property>
          <property name="text">
           <string>-</string>
          </property>
@@ -39,6 +42,9 @@
        </item>
        <item>
         <widget class="QPushButton" name="pushButton_plus">
+         <property name="focusPolicy">
+          <enum>Qt::NoFocus</enum>
+         </property>
          <property name="text">
           <string>+</string>
          </property>
@@ -84,6 +90,9 @@
       <layout class="QVBoxLayout" name="verticalLayout">
        <item>
         <widget class="QPushButton" name="pushButton_new">
+         <property name="focusPolicy">
+          <enum>Qt::NoFocus</enum>
+         </property>
          <property name="text">
           <string>Nowa gra</string>
          </property>
@@ -107,6 +116,9 @@
         <layout class="QGridLayout" name="gridLayout">
          <item row="0" column="0">
           <widget class="QPushButton" name="pushButton_easy">
+           <property name="focusPolicy">
+            <enum>Qt::NoFocus</enum>
+           </property>
            <property name="text">
             <string>Łatwa</string>
            </property>
@@ -114,6 +126,9 @@
          </item>
          <item row="0" column="1">
           <widget class="QPushButton" name="pushButton_medium">
+           <property name="focusPolicy">
+            <enum>Qt::NoFocus</enum>
+           </property>
            <property name="text">
             <string>Średnia</string>
            </property>
@@ -121,6 +136,9 @@
          </item>
          <item row="1" column="0">
           <widget class="QPushButton" name="pushButton_hard">
+           <property name="focusPolicy">
+            <enum>Qt::NoFocus</enum>
+           </property>
            <property name="text">
             <string>Trudna</string>
            </property>
@@ -128,6 +146,9 @@
          </item>
          <item row="1" column="1">
           <widget class="QPushButton" name="pushButton_expert">
+           <property name="focusPolicy">
+            <enum>Qt::NoFocus</enum>
+           </property>
            <property name="text">
             <string>Ekspert</string>
            </property>
@@ -137,6 +158,9 @@
        </item>
        <item>
         <widget class="QPushButton" name="pushButton_leader">
+         <property name="focusPolicy">
+          <enum>Qt::NoFocus</enum>
+         </property>
          <property name="text">
           <string>Najlepsze czasy...</string>
          </property>
@@ -151,6 +175,9 @@
        </item>
        <item>
         <widget class="QPushButton" name="pushButton_load">
+         <property name="focusPolicy">
+          <enum>Qt::NoFocus</enum>
+         </property>
          <property name="text">
           <string>Wczytaj</string>
          </property>
@@ -165,6 +192,9 @@
        </item>
        <item>
         <widget class="QPushButton" name="pushButton_exit">
+         <property name="focusPolicy">
+          <enum>Qt::NoFocus</enum>
+         </property>
          <property name="text">
           <string>Wyjście</string>
          </property>
@@ -258,7 +288,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>670</width>
+     <width>278</width>
      <height>20</height>
     </rect>
    </property>
@@ -281,6 +311,7 @@
      <string>Labirynt</string>
     </property>
     <addaction name="action_new"/>
+    <addaction name="action_blackout"/>
     <addaction name="action_load"/>
     <addaction name="separator"/>
     <addaction name="action_save"/>
@@ -300,9 +331,6 @@
    <property name="toolTip">
     <string>Otwórz z pliku...</string>
    </property>
-   <property name="shortcut">
-    <string>Ctrl+E</string>
-   </property>
   </action>
   <action name="action_save">
    <property name="text">
@@ -310,9 +338,6 @@
    </property>
    <property name="toolTip">
     <string>Zapisz</string>
-   </property>
-   <property name="shortcut">
-    <string>Ctrl+S</string>
    </property>
   </action>
   <action name="action_saveAs">
@@ -322,16 +347,10 @@
    <property name="toolTip">
     <string>Zapisz jako...</string>
    </property>
-   <property name="shortcut">
-    <string>Ctrl+Shift+S</string>
-   </property>
   </action>
   <action name="action_exit">
    <property name="text">
     <string>Wyjdź z gry</string>
-   </property>
-   <property name="shortcut">
-    <string>Ctrl+Q</string>
    </property>
   </action>
   <action name="action_easy">
@@ -361,24 +380,23 @@
    <property name="text">
     <string>Rankingi</string>
    </property>
-   <property name="shortcut">
-    <string>Ctrl+R</string>
-   </property>
   </action>
   <action name="action_new">
    <property name="text">
     <string>Nowa gra</string>
-   </property>
-   <property name="shortcut">
-    <string>Ctrl+N</string>
    </property>
   </action>
   <action name="action_close">
    <property name="text">
     <string>Zamknij labirynt</string>
    </property>
-   <property name="shortcut">
-    <string>Ctrl+C</string>
+  </action>
+  <action name="action_blackout">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Ograniczony widok</string>
    </property>
   </action>
  </widget>

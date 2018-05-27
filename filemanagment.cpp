@@ -3,8 +3,7 @@
 FileManagment::FileManagment(){
     dir_saves = new QDir;
 
-    if (!dir_saves->cd("saves"))
-    {
+    if (!dir_saves->cd("saves")){
         dir_saves->mkdir("saves");
         dir_saves->cd("saves");
     }
@@ -46,8 +45,8 @@ bool FileManagment::isBetter(){
     return 1;
 }
 
-bool FileManagment::testLeaderName(const QString &fileName){
-    if(fileName.isEmpty()){
+bool FileManagment::testLeaderName(const QString &file_name){
+    if(file_name.isEmpty()){
         win->highlightName();
         return 1;
     }
@@ -64,8 +63,8 @@ bool FileManagment::testNick(const QString &nick){
     return 0;
 }
 
-void FileManagment::saveToLeader(const QString &fileName, const QString &nick){
-    if(testNick(nick) || testLeaderName(fileName))
+void FileManagment::saveToLeader(const QString &file_name, const QString &nick){
+    if(testNick(nick) || testLeaderName(file_name))
         return;
 
     QFile file(dir_saves->filePath("LeaderBoard.txt"));
@@ -97,13 +96,13 @@ void FileManagment::saveToLeader(const QString &fileName, const QString &nick){
 
     file.flush();
     file.close();
-    saveAfterFinish(fileName);
+    saveAfterFinish(file_name);
 }
 
-void FileManagment::saveAfterFinish(const QString &fileName){
-    if (testLeaderName(fileName))
+void FileManagment::saveAfterFinish(const QString &file_name){
+    if (testLeaderName(file_name))
         return;
-    maze->name = fileName;
+    maze->name = file_name;
     maze->current_pos.setX(0);
     maze->current_pos.setY(maze->start);
     maze->seconds = 0;
@@ -172,12 +171,12 @@ void FileManagment::load()
     delete dialog;
 }
 
-bool FileManagment::testLoadName(const QString &fileName){
-    if(fileName.isEmpty()){
+bool FileManagment::testLoadName(const QString &file_name){
+    if(file_name.isEmpty()){
         dialog->highlightLine();
         return 1;
     }
-    QFile file(dir_saves->filePath(fileName + ".txt"));
+    QFile file(dir_saves->filePath(file_name + ".txt"));
     if(!file.open(QIODevice::ReadOnly | QIODevice::Text)){
         dialog->highlightLine();
         return 1;
@@ -189,10 +188,12 @@ bool FileManagment::testLoadName(const QString &fileName){
     return 0;
 }
 
-void FileManagment::load(const QString &fileName){
-    if (testLoadName(fileName))
+void FileManagment::load(const QString &file_name){
+    if (testLoadName(file_name))
         return;
-    QFile file(dir_saves->filePath(fileName + ".txt"));
+    if (!isFine(file_name))
+        return;
+    QFile file(dir_saves->filePath(file_name + ".txt"));
     if(!file.open(QIODevice::ReadOnly | QIODevice::Text))
         return;
 
@@ -202,7 +203,7 @@ void FileManagment::load(const QString &fileName){
     emit loadSignal(height, width);
 
     inStream >> maze->difficulty >> maze->seconds >> maze->start >> maze->end >> maze->current_pos.rx() >> maze->current_pos.ry();
-    maze->name = fileName;
+    maze->name = file_name;
     for (int i=0; i<maze->height; ++i)
         for (int j=0; j<maze->width; j++)
             inStream >> maze->array[i][j];
@@ -242,51 +243,39 @@ void FileManagment::saveAs(){
     delete dialog;
 }
 
-bool FileManagment::testSaveName(const QString &fileName){
-    if(fileName.isEmpty()){
+bool FileManagment::testSaveName(const QString &file_name){
+    if(file_name.isEmpty()){
         dialog->highlightLine();
         return 1;
     }
-
-    //    QFile file(dir_saves->filePath(fileName + ".txt"));
-    //    if(!file.open(QIODevice::ReadOnly | QIODevice::Text))
-    //    {
-    //        dialog->unhighlightLine();
-    //        return;
-    //    }
-    //    file.flush();
-    //    file.close();
-
     dialog->unhighlightLine();
     return 0;
 }
 
-void FileManagment::save(const QString &fileName){
-    if (testSaveName(fileName))
+void FileManagment::save(const QString &file_name){
+    if (testSaveName(file_name))
         return;
-    maze->name = fileName;
+    maze->name = file_name;
     save();
     dialog->close();
 }
 //------------------------------------------------
-void FileManagment::deleteFile(const QString &fileName){
-    QFile file(dir_saves->filePath(fileName + ".txt"));
+void FileManagment::deleteFile(const QString &file_name){
+    QFile file(dir_saves->filePath(file_name + ".txt"));
 
     if (file.remove())
         dialog->clearLine();
     else
         dialog->highlightLine();
     file.flush();
-    file.close();// czy po usunięciu dalej muszę spłukać i zamknąć?
-
+    file.close();
     fillFilesList();
 }
 
 void FileManagment::fillFilesList(){
     dialog->clearTree();
-
     QStringList filesList = dir_saves->entryList(QDir::Files, QDir::Time);
-
+    filesList.removeOne("LeaderBoard.txt");
     for (int i=0; i<filesList.size(); ++i){
         QFile file(dir_saves->filePath(filesList.at(i)));
         if(!file.open(QIODevice::ReadOnly | QIODevice::Text))
@@ -300,7 +289,6 @@ void FileManagment::fillFilesList(){
 
         file.flush();
         file.close();
-
         name.replace(".txt", "");
 
         switch (diffNumber){
@@ -316,51 +304,55 @@ void FileManagment::fillFilesList(){
         dialog->addFileInfo(fileInfo);
     }
 }
+//------------------------------------------------
+bool FileManagment::isFine(const QString &file_name){
+    QFile file(dir_saves->filePath(file_name + ".txt"));
+    if(!file.open(QIODevice::ReadOnly | QIODevice::Text))
+        return displayError(1);
+    QTextStream inStream(&file);
+    QString input;
+    bool ok;
+    int maze_info[8]; // 0-height, 1-width, 2-difficulty, 3-seconds, 4-start, 5-end, 6-current_pos_x, 7-current_pos_y;
 
-//bool FileManagment::isFine(QString fileName) // dluuuuuuga funkcja sprawdzajaca wszystkie glupoty
-//{
-//    QFile file(dir->filePath(fileName + ".txt"));
-//    if(!file.open(QIODevice::ReadOnly | QIODevice::Text))
-//        return 0;
+    for (int i=0; i<8; ++i){
+        inStream >> input;
+        maze_info[i] = input.toInt(&ok, 10);
+        if (!ok)
+            return displayError(2);
+    }
+    if (maze_info[0] < 20 || maze_info[0] > 100 || maze_info[0] % 5 != 0 ||
+            maze_info[1] < 20 || maze_info[1] > 100 || maze_info[1] % 5 != 0)
+        return displayError(3);
+    if (maze_info[2] < 1 || maze_info[2] > 4)
+        return displayError(4);
+    if (maze_info[3] < 0)
+        return displayError(5);
+    if (maze_info[4] < 0 || maze_info[4] >= maze_info[0] || maze_info[5] < 0 || maze_info[5] >= maze_info[0])
+        return displayError(6);
+    if (maze_info[6] < 0 || maze_info[6] >= maze_info[1] || maze_info[7] < 0 || maze_info[7] >= maze_info[0])
+        return displayError(7);
 
-//    QTextStream inStream(&file);
-//    QString input;
-//    bool ok;
-//    int minfo[8]; // 0-height, 1-width, 2-difficulty, 3-seconds, 4-start, 5-end, 6-current_pos_x, 7-current_pos_y;
+    int counter = 0;
+    while (!inStream.atEnd()){
+        inStream >> input;
+        int array_value = input.toInt(&ok, 10);
+        if (!ok || array_value < 0 || array_value > 14)
+            return displayError(8 + array_value*100);
+        counter++;
+    }
+    if (counter != maze_info[0]*maze_info[1])
+        return displayError(9);
 
-//    for (int i=0; i<8; ++i)
-//    {
-//        inStream >> input;
-//        minfo[i] = input.toInt(&ok, 10);
-//        if (!ok)
-//            return 0;
-//    }
+    file.flush();
+    file.close();
+    return 1;
+}
 
-//    if (minfo[0] < 20 || minfo[0] > 100 || minfo[1] < 20 || minfo[1] > 100)
-//        return 0;
-//    if (minfo[2] < 1 || minfo[2] > 4)
-//        return 0;
-//    if (minfo[3] < 0)
-//        return 0;
-//    if (minfo[4] < 0 || minfo[4] >= minfo[0] || minfo[5] < 0 || minfo[5] >= minfo[0])
-//        return 0;
-//    if (minfo[6] < 0 || minfo[6] >= minfo[1] || minfo[7] < 0 || minfo[7] >= minfo[0])
-//        return 0;
-
-//    int counter = 0;
-//    while (!inStream.atEnd())
-//    {
-//        inStream >> input;
-//        input.toInt(&ok, 10);
-//        if (!ok)
-//            return 0;
-//        counter++;
-//    }
-
-//    if (counter != minfo[0]*minfo[1])
-//        return 0;
-
-//    file.flush();
-//    file.close();
-//    return 1;
-//}
+bool FileManagment::displayError(int error_num){
+    QMessageBox *pop_up = new QMessageBox;
+    pop_up->setText("Plik nie istnieje, jest uszkodzony lub zawiera niepoprawne dane.\nZalecane usunięcie.\n\n"
+                    "Kod błędu: "
+                    + QString::number(error_num));
+    pop_up->exec();
+    return 0;
+}

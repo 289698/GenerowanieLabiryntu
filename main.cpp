@@ -1,3 +1,9 @@
+/*! \mainpage
+ * Projekt ZAP 2 "Generowanie Labiryntu"
+ * \author Kamil Długosz
+ * \date 27.05.2018
+ *
+ */
 #include "mainwindow.h"
 #include <QApplication>
 

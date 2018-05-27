@@ -116,8 +116,7 @@ QPoint MainWindow::grid(QPoint point){
     return point;
 }
 
-void MainWindow::prepareMaze(int height, int width, int difficulty, int blackout_size, bool is_default){
-    this->blackout_size = blackout_size;
+void MainWindow::prepareMaze(int height, int width, int difficulty, bool is_default){
     game->create(height, width, difficulty);
     game->maze->isDefault = is_default;
     fillLabels();
@@ -197,7 +196,7 @@ void MainWindow::on_action_leader_triggered(){
 void MainWindow::on_action_new_triggered(){
     pauseGame();
     setting = new SettingsDialog;
-    connect(setting, SIGNAL(mainSettings(int,int,int,int)), this, SLOT(prepareMaze(int,int,int,int)));
+    connect(setting, SIGNAL(mainSettings(int,int,int)), this, SLOT(prepareMaze(int,int,int)));
     setting->setModal(0);
     setting->exec();
     delete setting;
@@ -234,4 +233,9 @@ void MainWindow::on_action_close_triggered(){
     game->deleteMaze();
     update();
     this->setFixedSize(kWindowWidth, kWindowHeight);
+}
+
+void MainWindow::on_action_blackout_toggled(bool arg1){
+    blackout_size = 4 * arg1;
+    update();
 }
