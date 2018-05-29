@@ -191,6 +191,13 @@
         </widget>
        </item>
        <item>
+        <widget class="QPushButton" name="pushButton_help">
+         <property name="text">
+          <string>Pomoc</string>
+         </property>
+        </widget>
+       </item>
+       <item>
         <widget class="QPushButton" name="pushButton_exit">
          <property name="focusPolicy">
           <enum>Qt::NoFocus</enum>
@@ -318,6 +325,7 @@
     <addaction name="action_saveAs"/>
     <addaction name="separator"/>
     <addaction name="action_close"/>
+    <addaction name="action_help"/>
     <addaction name="separator"/>
     <addaction name="action_exit"/>
    </widget>
@@ -395,8 +403,16 @@
    <property name="checkable">
     <bool>true</bool>
    </property>
+   <property name="checked">
+    <bool>true</bool>
+   </property>
    <property name="text">
     <string>Ograniczony widok</string>
+   </property>
+  </action>
+  <action name="action_help">
+   <property name="text">
+    <string>Pomoc</string>
    </property>
   </action>
  </widget>

@@ -239,3 +239,23 @@ void MainWindow::on_action_blackout_toggled(bool arg1){
     blackout_size = 4 * arg1;
     update();
 }
+
+void MainWindow::on_action_help_triggered(){
+    QMessageBox *help = new QMessageBox();
+    help->setText("STEROWANIE:\n\n"
+                  "Strzałka w górę lub W- porusz się do góry\n"
+                  "Strzałka w lewo lub A- porusz się w lewo\n"
+                  "Strzałka w dół lub S- porusz się w dół\n"
+                  "Strzałka w prawo lub D- porusz się w prawo\n"
+                  "P- przenieś się przed wyjście z labiryntu\n\n"
+                  "CEL GRY:\n\n"
+                  "Znaleźć drogę do wyjścia- przerwy w ścianie po "
+                  "prawej stronie- w jak najkrótszym czasie. Najlepsze "
+                  "wyniki z szybkich gier mogą być zapisane w rankingu");
+    help->exec();
+    delete help;
+}
+
+void MainWindow::on_pushButton_help_clicked(){
+    on_action_help_triggered();
+}

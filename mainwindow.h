@@ -8,6 +8,7 @@
 #include <QTimer>
 #include <QPainter>
 #include <QKeyEvent>
+#include <QMessageBox>
 #include <cmath>
 #include "mazemanagment.h"
 #include "settingsdialog.h"
@@ -51,6 +52,8 @@ private slots:
     void on_action_saveAs_triggered();
     //! Usuwa labirynt i wraca do początkowych ustawień okna.
     void on_action_close_triggered();
+    //! Wyświetla okno z pomocą.
+    void on_action_help_triggered();
     //! Tworzy łatwy labirynt 20x20.
     void on_pushButton_easy_clicked(){
         on_action_easy_triggered();
@@ -83,6 +86,8 @@ private slots:
     void on_pushButton_exit_clicked(){
         this->close();
     }
+    //! Wyświetla okno z pomocą.
+    void on_pushButton_help_clicked();
     //! Zmniejsza rozmiar okna i labiryntu.
     void on_pushButton_minus_clicked();
     //! Zwiększa rozmiar okna i labiryntu.
@@ -108,11 +113,11 @@ private:
     QTimer *timer = NULL; //!< Wskaźnik na QTimer mierzący czas przechodzenia
 
     const int kTimeInterval = 100, //!< Czas po jakim aktualizowany jest czas przechodzenia
-    kWindowWidth = 300, kWindowHeight = 280;
+    kWindowWidth = 300, kWindowHeight = 320;
     int margin_top = 75, margin_bottom = 45, margin_left = 20; //!< Marginesy pozwalające pozycjonować labirynt
     int maze_size = 8; //!< Rozmiar pojedyńczego kwadracika
     bool is_painter_off = 0; //!< 0- labirynt jest rysowany; 1- nie jest rysowany
-    int blackout_size = 0; //!< 0- nie ograniczony widok; n- widok ograniczony do n kratek w każdą stronę
+    int blackout_size = 4; //!< 0- nie ograniczony widok; n- widok ograniczony do n kratek w każdą stronę
     //! Zmienia rozmiar okna w zależności od wielkości labiryntu
     void resizeWindow(){
         this->setFixedSize((game->maze->width-1) * maze_size*2 + margin_left*2,
