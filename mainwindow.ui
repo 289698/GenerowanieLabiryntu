@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>278</width>
-    <height>334</height>
+    <height>348</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -192,6 +192,9 @@
        </item>
        <item>
         <widget class="QPushButton" name="pushButton_help">
+         <property name="focusPolicy">
+          <enum>Qt::NoFocus</enum>
+         </property>
          <property name="text">
           <string>Pomoc</string>
          </property>
